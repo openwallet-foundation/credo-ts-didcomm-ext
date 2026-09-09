@@ -37,5 +37,7 @@ export class DidCommReactionsApi {
     await this.messageSender.sendMessage(
       new DidCommOutboundMessageContext(message, { agentContext: this.agentContext, connection }),
     )
+
+    return { messageId: message.id }
   }
 }
