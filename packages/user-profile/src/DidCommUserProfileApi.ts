@@ -29,6 +29,8 @@ export class DidCommUserProfileApi {
     await this.messageSender.sendMessage(
       new DidCommOutboundMessageContext(message, { agentContext: this.agentContext, connection }),
     )
+
+    return { messageId: message.id }
   }
 
   /**
@@ -67,6 +69,8 @@ export class DidCommUserProfileApi {
     await this.messageSender.sendMessage(
       new DidCommOutboundMessageContext(message, { agentContext: this.agentContext, connection }),
     )
+
+    return { messageId: message.id }
   }
 
   /**
