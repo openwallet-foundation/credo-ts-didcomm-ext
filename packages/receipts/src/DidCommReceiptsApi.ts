@@ -39,6 +39,8 @@ export class DidCommReceiptsApi {
     await this.messageSender.sendMessage(
       new DidCommOutboundMessageContext(message, { agentContext: this.agentContext, connection }),
     )
+
+    return { messageId: message.id }
   }
 
   public async request(options: { connectionId: string; requestedReceipts: DidCommRequestedReceiptOptions[] }) {
@@ -55,5 +57,7 @@ export class DidCommReceiptsApi {
     await this.messageSender.sendMessage(
       new DidCommOutboundMessageContext(message, { agentContext: this.agentContext, connection }),
     )
+
+    return { messageId: message.id }
   }
 }
