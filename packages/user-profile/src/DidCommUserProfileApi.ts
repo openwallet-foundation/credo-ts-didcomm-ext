@@ -1,3 +1,4 @@
+import type { DidCommUserProfileKey } from './messages'
 import type { DidCommUserProfileData, GetUserProfileDataReturnType } from './model'
 
 import { AgentContext, injectable } from '@credo-ts/core'
@@ -20,11 +21,11 @@ export class DidCommUserProfileApi {
    *
    * @param options
    */
-  public async requestUserProfile(options: { connectionId: string }) {
+  public async requestUserProfile(options: { connectionId: string; query?: DidCommUserProfileKey[] }) {
     const connection = await this.connectionService.getById(this.agentContext, options.connectionId)
     connection.assertReady()
 
-    const message = await this.userProfileService.createRequestProfileMessage({})
+    const message = await this.userProfileService.createRequestProfileMessage({ query: options.query })
 
     await this.messageSender.sendMessage(
       new DidCommOutboundMessageContext(message, { agentContext: this.agentContext, connection }),
