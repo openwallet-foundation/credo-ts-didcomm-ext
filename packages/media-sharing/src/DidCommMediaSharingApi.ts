@@ -99,6 +99,8 @@ export class DidCommMediaSharingApi {
         connection,
       }),
     )
+
+    return { messageId: payload.id }
   }
 
   public async setMetadata(recordId: string, key: string, value: unknown) {
