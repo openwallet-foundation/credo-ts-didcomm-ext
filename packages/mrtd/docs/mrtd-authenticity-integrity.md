@@ -64,7 +64,7 @@ Register the module (the config is optional — omit it to disable authenticity)
 
 ```ts
 import { Agent } from '@credo-ts/core'
-import { DidCommMrtdModule, DidCommMrtdModuleConfig } from '@2060.io/credo-ts-didcomm-mrtd'
+import { DidCommMrtdModule, DidCommMrtdModuleConfig } from '@credo-ts/didcomm-mrtd'
 
 const agent = new Agent({
   config: {
@@ -96,7 +96,7 @@ When you want to verify outside of a DIDComm flow, you can call the services dir
 
 ```ts
 import * as fs from 'fs'
-import { CscaMasterListService, SodVerifierService } from '@2060.io/credo-ts-didcomm-mrtd/dist/services'
+import { CscaMasterListService, SodVerifierService } from '@credo-ts/didcomm-mrtd/dist/services'
 
 // Resolve from agent container instead in a real app
 const ml = container.resolve(CscaMasterListService)

@@ -2,7 +2,7 @@
 
 ![Credo logo](https://github.com/openwallet-foundation/credo-ts/blob/c7886cb8377ceb8ee4efe8d264211e561a75072d/images/credo-logo.png)
 
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://raw.githubusercontent.com/openwallet-foundation/credo-ts-ext/main/LICENSE) [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](https://www.typescriptlang.org/) [![npm version](https://img.shields.io/npm/v/@2060.io/credo-ts-didcomm-user-profile)](https://www.npmjs.com/package/@2060.io/credo-ts-didcomm-user-profile)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://raw.githubusercontent.com/openwallet-foundation/credo-ts-ext/main/LICENSE) [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](https://www.typescriptlang.org/) [![npm version](https://img.shields.io/npm/v/@credo-ts/didcomm-user-profile)](https://www.npmjs.com/package/@credo-ts/didcomm-user-profile)
 
 ## Overview
 
@@ -11,7 +11,7 @@ The **DIDComm User Profile** extension module for [Credo](https://github.com/ope
 ## Installation
 
 ```bash
-npm install @2060.io/credo-ts-didcomm-user-profile
+npm install @credo-ts/didcomm-user-profile
 ```
 
 ## Usage
@@ -21,7 +21,7 @@ npm install @2060.io/credo-ts-didcomm-user-profile
 To use the User Profile module, add it to your agent's modules configuration:
 
 ```typescript
-import { DidCommUserProfileModule, UserProfileModuleConfig } from '@2060.io/credo-ts-didcomm-user-profile'
+import { DidCommUserProfileModule, UserProfileModuleConfig } from '@credo-ts/didcomm-user-profile'
 
 const agent = new Agent({
   modules: {

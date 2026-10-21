@@ -1,9 +1,8 @@
 {
-  "name": "@2060.io/credo-ts-didcomm-media-sharing",
+  "name": "@credo-ts/didcomm-media-sharing",
   "version": "0.1.1",
   "description": "DIDComm Media sharing protocol implementation for credo-ts",
-  "author": "2060.io",
-  "homepage": "https://github.com/2060-io/credo-ts-didcomm-ext/tree/main/packages/media-sharing",
+  "homepage": "https://github.com/openwallet-foundation/credo-ts-didcomm-ext/tree/main/packages/media-sharing",
   "license": "Apache-2.0",
   "type": "module",
   "main": "./build/index.mjs",
@@ -27,11 +26,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/2060-io/credo-ts-didcomm-ext",
+    "url": "https://github.com/openwallet-foundation/credo-ts-didcomm-ext",
     "directory": "packages/media-sharing"
-  },
-  "bugs": {
-    "url": "https://github.com/2060-io/credo-ts-didcomm-ext/issues"
   },
   "publishConfig": {
     "access": "public"

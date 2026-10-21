@@ -19,10 +19,10 @@
       alt="typescript"
       src="https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg"
   /></a>
-    <a href="https://www.npmjs.com/package/@2060.io/credo-ts-didcomm-calls"
+    <a href="https://www.npmjs.com/package/@credo-ts/didcomm-calls"
     ><img
-      alt="@2060.io/credo-ts-didcomm-calls version"
-      src="https://img.shields.io/npm/v/@2060.io/credo-ts-didcomm-calls"
+      alt="@credo-ts/didcomm-calls version"
+      src="https://img.shields.io/npm/v/@credo-ts/didcomm-calls"
   /></a>
 
 </p>
@@ -35,7 +35,7 @@ The **DIDComm Calls** extension module for [Credo](https://github.com/openwallet
 ## Installation
 
 ```bash
-npm install @2060.io/credo-ts-didcomm-calls
+npm install @credo-ts/didcomm-calls
 ```
 
 ## Usage
@@ -45,7 +45,7 @@ npm install @2060.io/credo-ts-didcomm-calls
 To use the DIDComm Calls module, add it to your agent's modules configuration:
 
 ```typescript
-import { DidCommCallsModule } from '@2060.io/credo-ts-didcomm-calls'
+import { DidCommCallsModule } from '@credo-ts/didcomm-calls'
 
 const agent = new Agent({
   modules: {

@@ -7,7 +7,7 @@
     "packages/*"
   ],
   "repository": {
-    "url": "https://github.com/2060-io/credo-ts-didcomm-ext",
+    "url": "https://github.com/openwallet-foundation/credo-ts-didcomm-ext",
     "type": "git"
   },
   "scripts": {

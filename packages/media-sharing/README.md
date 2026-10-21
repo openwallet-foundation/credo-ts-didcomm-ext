@@ -19,10 +19,10 @@
       alt="typescript"
       src="https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg"
   /></a>
-  <a href="https://www.npmjs.com/package/@2060.io/credo-ts-didcomm-media-sharing"
+  <a href="https://www.npmjs.com/package/@credo-ts/didcomm-media-sharing"
     ><img
-      alt="@2060.io/credo-ts-didcomm-media-sharing version"
-      src="https://img.shields.io/npm/v/@2060.io/credo-ts-didcomm-media-sharing"
+      alt="@credo-ts/didcomm-media-sharing version"
+      src="https://img.shields.io/npm/v/@credo-ts/didcomm-media-sharing"
   /></a>
 </p>
 <br />
@@ -34,7 +34,7 @@ The **Media Sharing** extension module for [Credo](https://github.com/openwallet
 ## Installation
 
 ```bash
-npm install @2060.io/credo-ts-didcomm-media-sharing
+npm install @credo-ts/didcomm-media-sharing
 ```
 
 ## Usage
@@ -44,7 +44,7 @@ npm install @2060.io/credo-ts-didcomm-media-sharing
 To use the Media Sharing module, add it to your agent's modules configuration:
 
 ```typescript
-import { MediaSharingModule } from '@2060.io/credo-ts-didcomm-media-sharing'
+import { MediaSharingModule } from '@credo-ts/didcomm-media-sharing'
 
 const agent = new Agent({
   modules: {

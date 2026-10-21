@@ -1,5 +1,5 @@
 {
-  "name": "@2060.io/credo-ts-didcomm-reactions",
+  "name": "@credo-ts/didcomm-reactions",
   "type": "module",
   "main": "./build/index.mjs",
   "module": "./build/index.mjs",
@@ -19,10 +19,10 @@
   },
   "license": "Apache-2.0",
   "description": "DIDComm Message Reactions protocol implementation for @credo-ts/core",
-  "homepage": "https://github.com/2060-io/credo-ts-didcomm-ext/tree/main/packages/reactions",
+  "homepage": "https://github.com/openwallet-foundation/credo-ts-didcomm-ext/tree/main/packages/reactions",
   "repository": {
     "type": "git",
-    "url": "https://github.com/2060-io/credo-ts-didcomm-ext",
+    "url": "https://github.com/openwallet-foundation/credo-ts-didcomm-ext",
     "directory": "packages/reactions"
   },
   "scripts": {
@@ -34,9 +34,6 @@
     "check-format": "pnpm prettier --check",
     "prettier": "prettier --ignore-path .gitignore '**/*.+(js|json|ts|md|yml|yaml)'",
     "test": "vitest run"
-  },
-  "bugs": {
-    "url": "https://github.com/2060-io/credo-ts-didcomm-ext/issues"
   },
   "devDependencies": {
     "@credo-ts/askar": "^0.6.1",

@@ -19,10 +19,10 @@
       alt="typescript"
       src="https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg"
   /></a>
-  <a href="https://www.npmjs.com/package/@2060.io/credo-ts-didcomm-reactions"
+  <a href="https://www.npmjs.com/package/@credo-ts/didcomm-reactions"
     ><img
-      alt="@2060.io/credo-ts-didcomm-reactions"
-      src="https://img.shields.io/npm/v/@2060.io/credo-ts-didcomm-reactions"
+      alt="@credo-ts/didcomm-reactions"
+      src="https://img.shields.io/npm/v/@credo-ts/didcomm-reactions"
   /></a>
 </p>
 <br />
@@ -34,7 +34,7 @@ The **Message Reactions** extension module for [Credo](https://github.com/openwa
 ## Installation
 
 ```bash
-npm install @2060.io/credo-ts-didcomm-reactions
+npm install @credo-ts/didcomm-reactions
 ```
 
 ## Usage
@@ -44,7 +44,7 @@ npm install @2060.io/credo-ts-didcomm-reactions
 To use the Reactions module, add it to your agent's modules configuration:
 
 ```typescript
-import { DidCommReactionsModule } from '@2060.io/credo-ts-didcomm-reactions'
+import { DidCommReactionsModule } from '@credo-ts/didcomm-reactions'
 
 const agent = new Agent({
   modules: {
@@ -104,7 +104,7 @@ if (action.type === AgentActionType.SendReaction) {
 Subscribe to reaction events to update your UI or message store when reactions are received:
 
 ```typescript
-import { MessageReactionsReceivedEvent } from '@2060.io/credo-ts-didcomm-reactions'
+import { MessageReactionsReceivedEvent } from '@credo-ts/didcomm-reactions'
 
 const messageReactionsReceivedListener = async (data: MessageReactionsReceivedEvent) => {
   const reactions = data.payload.reactions
