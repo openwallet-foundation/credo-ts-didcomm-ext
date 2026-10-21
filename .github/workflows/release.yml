@@ -3,13 +3,18 @@ name: Release
 on:
   push:
     branches: [main]
+  workflow_dispatch:
+    inputs:
+      package:
+        description: 'Path of the package to publish, for example packages/calls. Use this when a push run created the GitHub release but did not publish the package.'
+        required: true
+        type: string
 
-# Make sure we're not running multiple release steps at the same time as this can give issues with determining the next npm version to release.
-# Ideally we only add this to the 'release' job so it doesn't limit PR runs, but github can't guarantee the job order in that case:
-# "When concurrency is specified at the job level, order is not guaranteed for jobs or runs that queue within 5 minutes of each other."
+# Queue release runs instead of cancelling them. A cancelled run can create the GitHub release
+# and then stop before the publish job runs. The next run then sees no new release and skips the publish.
 concurrency:
-  group: credo-ts-didcomm-${{ github.ref }}-${{ github.repository }}-${{ github.event_name }}-release
-  cancel-in-progress: true
+  group: credo-ts-didcomm-${{ github.ref }}-${{ github.repository }}-release
+  cancel-in-progress: false
 
 permissions:
   id-token: write # required for npm trusted publishing
@@ -18,6 +23,7 @@ permissions:
 
 jobs:
   release-please:
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     outputs:
       releases_created: ${{ steps.release-please.outputs.releases_created }}
@@ -32,29 +38,54 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Print release outputs for debugging
         continue-on-error: true
+        env:
+          RELEASE_OUTPUTS: ${{ toJson(steps.release-please.outputs) }}
         run: |
           echo "Release outputs:"
-          echo ${{ toJson(steps.release-please.outputs) }}
+          echo "$RELEASE_OUTPUTS"
 
-  # Initiate release process if release was created
+  # Decide which packages to publish: the packages that release-please released on a push,
+  # or the package given as input on a manual run.
+  plan:
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-latest
+    needs: [release-please]
+    outputs:
+      packages: ${{ steps.plan.outputs.packages }}
+    steps:
+      - name: Select packages to publish
+        id: plan
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          INPUT_PACKAGE: ${{ inputs.package }}
+          PATHS_RELEASED: ${{ needs.release-please.outputs.paths_released }}
+        run: |
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            packages="[\"$INPUT_PACKAGE\"]"
+          else
+            packages="${PATHS_RELEASED:-[]}"
+          fi
+          echo "packages: $packages"
+          echo "packages=$packages" >> "$GITHUB_OUTPUT"
+
   release-package:
     permissions:
       id-token: write # required for npm trusted publishing
       contents: read
-    if: ${{needs.release-please.outputs.releases_created}}
+    if: ${{ !cancelled() && needs.plan.outputs.packages != '[]' }}
     runs-on: ubuntu-latest
-    needs: [release-please]
+    needs: [plan]
     strategy:
       fail-fast: false
       matrix:
-        package: ${{fromJson(needs.release-please.outputs.paths_released)}}
+        package: ${{ fromJson(needs.plan.outputs.packages) }}
     steps:
       - name: Checkout credo-ts-didcomm-ext
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Setup pnpm
         uses: pnpm/action-setup@v6
       - name: Setup node v22
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: pnpm
