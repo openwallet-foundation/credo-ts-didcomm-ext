@@ -3,7 +3,7 @@
 #
 
 repository:
-  name: didcomm-credo-ts-ext
+  name: credo-ts-didcomm-ext
   description: DIDComm Extension libraries for Credo
   homepage: https://credo.js.org
   default_branch: main

@@ -4,7 +4,7 @@
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://raw.githubusercontent.com/openwallet-foundation/credo-ts-ext/main/LICENSE)
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](https://www.typescriptlang.org/)
-[![@2060.io/credo-ts-didcomm-receipts](https://img.shields.io/npm/v/@2060.io/credo-ts-didcomm-receipts)](https://www.npmjs.com/package/credo-ts-didcomm-receipts)
+[![@credo-ts/didcomm-receipts](https://img.shields.io/npm/v/@credo-ts/didcomm-receipts)](https://www.npmjs.com/package/@credo-ts/didcomm-receipts)
 
 ## Overview
 
@@ -13,7 +13,7 @@ The **Message Receipts** extension module for [Credo](https://github.com/openwal
 ## Installation
 
 ```bash
-npm install @2060.io/credo-ts-didcomm-receipts
+npm install @credo-ts/didcomm-receipts
 ```
 
 ## Usage
@@ -22,7 +22,7 @@ Adding the Module to Your Agent
 To use the Receipts module, add it to your agent's modules configuration:
 
 ```typescript
-import { ReceiptsModule } from '@2060.io/credo-ts-didcomm-receipts'
+import { ReceiptsModule } from '@credo-ts/didcomm-receipts'
 
 const agent = new Agent({
   modules: {
@@ -67,7 +67,7 @@ await agent.modules.receipts.request({
 Subscribe to receipt events to react to incoming receipts:
 
 ```typescript
-import { ReceiptsEventTypes, MessageReceiptsReceivedEvent } from '@2060.io/credo-ts-didcomm-receipts'
+import { ReceiptsEventTypes, MessageReceiptsReceivedEvent } from '@credo-ts/didcomm-receipts'
 
 agent.events.on(ReceiptsEventTypes.MessageReceiptsReceived, async ({ payload }: MessageReceiptsReceivedEvent) => {
   const connectionId = payload.connectionId

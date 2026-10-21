@@ -19,10 +19,10 @@
       alt="typescript"
       src="https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg"
   /></a>
-  <a href="https://www.npmjs.com/package/@2060.io/credo-ts-didcomm-mrtd"
+  <a href="https://www.npmjs.com/package/@credo-ts/didcomm-mrtd"
     ><img
-      alt="@2060.io/credo-ts-didcomm-mrtd version"
-      src="https://img.shields.io/npm/v/@2060.io/credo-ts-didcomm-mrtd"
+      alt="@credo-ts/didcomm-mrtd version"
+      src="https://img.shields.io/npm/v/@credo-ts/didcomm-mrtd"
   /></a>
 </p>
 <br />
@@ -34,7 +34,7 @@ The **DIDComm MRTD** (Machine Readable Travel Documents) extension module for [C
 ## Installation
 
 ```bash
-npm install @2060.io/credo-ts-didcomm-mrtd
+npm install @credo-ts/didcomm-mrtd
 ```
 
 ## Usage
@@ -46,7 +46,7 @@ To use the MRTD module, add it to your agent's modules configuration:
 > **Note:** The `masterListCscaLocation` must point to the **official ICAO Master List (CSCA certificates)** corresponding to the version you are working with. Make sure you always provide the up-to-date and correct list according to the ICAO release you intend to support. The Master List is typically distributed with an **`.ldif` extension**. For further details, see [**mrtd-authenticity-integrity.md**](./docs/mrtd-authenticity-integrity.md). When using an HTTP(S) URL, the service caches the file and records the filename in metadata so it can re-download automatically when the configured filename changes.
 
 ```typescript
-import { DidCommMrtdModule } from '@2060.io/credo-ts-didcomm-mrtd'
+import { DidCommMrtdModule } from '@credo-ts/didcomm-mrtd'
 
 const agent = new Agent({
   modules: {
@@ -79,7 +79,7 @@ await agent?.modules.mrtd.sendEMrtdData({
 The library provides several message and data types for handling MRTD data:
 
 ```typescript
-import { EMrtdData, MrzData } from '@2060.io/credo-ts-didcomm-mrtd'
+import { EMrtdData, MrzData } from '@credo-ts/didcomm-mrtd'
 
 // EMrtdData: Represents the full set of MRTD data groups (DG1, DG2, etc.)
 // MrzData: Represents parsed MRZ (Machine Readable Zone) information

@@ -4,7 +4,7 @@
     "lib": ["ES2021.Promise"],
     "baseUrl": ".",
     "paths": {
-      "@2060.io/credo-ts-didcomm-*": ["packages/*/src"]
+      "@credo-ts/didcomm-*": ["packages/*/src"]
     },
     "types": ["vitest/globals", "vitest/importMeta", "node"]
   },

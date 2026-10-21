@@ -1,4 +1,4 @@
-# @2060.io/credo-ts-didcomm-shorten-url
+# @credo-ts/didcomm-shorten-url
 
 DIDComm **Shorten URL 1.0** protocol implementation for `@credo-ts/core`. This module lets an agent play either of the roles defined by the spec:
 
@@ -28,9 +28,9 @@ DIDComm **Shorten URL 1.0** protocol implementation for `@credo-ts/core`. This m
 ## Installation
 
 ```bash
-pnpm add @2060.io/credo-ts-didcomm-shorten-url
+pnpm add @credo-ts/didcomm-shorten-url
 # or
-npm i @2060.io/credo-ts-didcomm-shorten-url
+npm i @credo-ts/didcomm-shorten-url
 ```
 
 ---
@@ -41,7 +41,7 @@ npm i @2060.io/credo-ts-didcomm-shorten-url
 
 ```ts
 import { Agent } from '@credo-ts/core'
-import { DidCommShortenUrlModule, ShortenUrlRole } from '@2060.io/credo-ts-didcomm-shorten-url'
+import { DidCommShortenUrlModule, ShortenUrlRole } from '@credo-ts/didcomm-shorten-url'
 
 const agent = new Agent({
   config: { label: 'my-agent' },
@@ -76,10 +76,7 @@ const { messageId } = await agent.modules.shortenUrl.requestShortenedUrl({
 ### 3) As **url-shortener** – listen for inbound requests and reply
 
 ```ts
-import {
-  DidCommShortenUrlEventTypes,
-  DidCommRequestShortenedUrlReceivedEvent,
-} from '@2060.io/credo-ts-didcomm-shorten-url'
+import { DidCommShortenUrlEventTypes, DidCommRequestShortenedUrlReceivedEvent } from '@credo-ts/didcomm-shorten-url'
 
 agent.events.on<DidCommRequestShortenedUrlReceivedEvent>(
   DidCommShortenUrlEventTypes.DidCommRequestShortenedUrlReceived,
@@ -110,7 +107,7 @@ const { messageId: invalidateMessageId } = await agent.modules.shortenUrl.invali
 // We persist invalidateMessageId on the record to correlate the Ack that comes back from the url-shortener.
 
 // Listen for the ack on the same agent (long-url-provider) to confirm completion
-import { DidCommShortenUrlEventTypes, DidCommShortenedUrlInvalidatedEvent } from '@2060.io/credo-ts-didcomm-shorten-url'
+import { DidCommShortenUrlEventTypes, DidCommShortenedUrlInvalidatedEvent } from '@credo-ts/didcomm-shorten-url'
 
 agent.events.on<DidCommShortenedUrlInvalidatedEvent>(
   DidCommShortenUrlEventTypes.DidCommShortenedUrlInvalidated,
@@ -124,10 +121,7 @@ agent.events.on<DidCommShortenedUrlInvalidatedEvent>(
 On the **url-shortener** agent subscribe to `DidCommInvalidateShortenedUrlReceived` so you can stop serving the revoked URL. The handler automatically returns the DIDComm `ack` that the spec requires, so your app only needs to update its own state:
 
 ```ts
-import {
-  DidCommInvalidateShortenedUrlReceivedEvent,
-  DidCommShortenUrlEventTypes,
-} from '@2060.io/credo-ts-didcomm-shorten-url'
+import { DidCommInvalidateShortenedUrlReceivedEvent, DidCommShortenUrlEventTypes } from '@credo-ts/didcomm-shorten-url'
 
 agent.events.on<DidCommInvalidateShortenedUrlReceivedEvent>(
   DidCommShortenUrlEventTypes.DidCommInvalidateShortenedUrlReceived,
@@ -250,7 +244,7 @@ enum DidCommShortenUrlEventTypes {
 Each API/service call stores a `DidCommShortenUrlRecord` in the wallet. You can resolve the repository through the dependency manager and query the current state:
 
 ```ts
-import { DidCommShortenUrlRepository, ShortenUrlState } from '@2060.io/credo-ts-didcomm-shorten-url'
+import { DidCommShortenUrlRepository, ShortenUrlState } from '@credo-ts/didcomm-shorten-url'
 
 const repository = agent.dependencyManager.resolve(DidCommShortenUrlRepository)
 
