@@ -1,5 +1,37 @@
 # Changelog
 
+## [0.1.0](https://github.com/openwallet-foundation/credo-ts-didcomm-ext/compare/didcomm-user-profile@v0.1.0...didcomm-user-profile@v0.1.0) (2026-10-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* publish the packages under the @credo-ts scope ([#181](https://github.com/openwallet-foundation/credo-ts-didcomm-ext/issues/181))
+
+### Features
+
+* add didcomm receipts package ([#72](https://github.com/openwallet-foundation/credo-ts-didcomm-ext/issues/72)) ([61633e0](https://github.com/openwallet-foundation/credo-ts-didcomm-ext/commit/61633e05563953e97f0fda32fbaeed7549360858))
+* add didcomm user-profile package ([#23](https://github.com/openwallet-foundation/credo-ts-didcomm-ext/issues/23)) ([38a8773](https://github.com/openwallet-foundation/credo-ts-didcomm-ext/commit/38a87738edb966c2d87131264713ce9b36df1d3b))
+* add updatedAt to user profile ([#108](https://github.com/openwallet-foundation/credo-ts-didcomm-ext/issues/108)) ([1e26531](https://github.com/openwallet-foundation/credo-ts-didcomm-ext/commit/1e265313e571ca9a8c22a283012d9ba073c9bc9a))
+* publish the packages under the [@credo-ts](https://github.com/credo-ts) scope ([#181](https://github.com/openwallet-foundation/credo-ts-didcomm-ext/issues/181)) ([166a6f7](https://github.com/openwallet-foundation/credo-ts-didcomm-ext/commit/166a6f79e04d5ef7c18049b4bd790bac3d850e3f))
+* return the id of the sent message from the remaining send methods ([#179](https://github.com/openwallet-foundation/credo-ts-didcomm-ext/issues/179)) ([c9bdf03](https://github.com/openwallet-foundation/credo-ts-didcomm-ext/commit/c9bdf037f0977590cf21175f1b18be0b90a333cf))
+* Upgrade to Credo 0.6.0 and tooling ([#137](https://github.com/openwallet-foundation/credo-ts-didcomm-ext/issues/137)) ([b204b0f](https://github.com/openwallet-foundation/credo-ts-didcomm-ext/commit/b204b0faa5b59705fd676e6d6be17e9c939d7ecf))
+* **user-profile:** allow sending arbitrary data on profile ([#25](https://github.com/openwallet-foundation/credo-ts-didcomm-ext/issues/25)) ([8a219df](https://github.com/openwallet-foundation/credo-ts-didcomm-ext/commit/8a219dfefd1d241cf05e9ce1c1a56abdd00076a1))
+* **user-profile:** parameters in ConnectionProfileUpdated ([#31](https://github.com/openwallet-foundation/credo-ts-didcomm-ext/issues/31)) ([56d393d](https://github.com/openwallet-foundation/credo-ts-didcomm-ext/commit/56d393dcfc393e65c2ac69ba2b3797566b30ada7))
+* **user-profile:** support thread for profile message in API ([#29](https://github.com/openwallet-foundation/credo-ts-didcomm-ext/issues/29)) ([85c1600](https://github.com/openwallet-foundation/credo-ts-didcomm-ext/commit/85c16006705c0707d44959583d1e77cdc1f5dcd6))
+
+
+### Bug Fixes
+
+* force release ([ed33f37](https://github.com/openwallet-foundation/credo-ts-didcomm-ext/commit/ed33f371a436e26d05ead13ba1cd9d4b92a63a4a))
+* tsyringe imports ([#158](https://github.com/openwallet-foundation/credo-ts-didcomm-ext/issues/158)) ([6acee41](https://github.com/openwallet-foundation/credo-ts-didcomm-ext/commit/6acee41a59cb2a9f964454e7ca95c3f6a612037e))
+* **user-profile:** add preferredLanguage and displayIcon to responses ([#27](https://github.com/openwallet-foundation/credo-ts-didcomm-ext/issues/27)) ([accca1d](https://github.com/openwallet-foundation/credo-ts-didcomm-ext/commit/accca1d3bd3d6f7577df2a70b7a60aea4388e3a9))
+* **user-profile:** update connection profile properly when user sends null values  ([#110](https://github.com/openwallet-foundation/credo-ts-didcomm-ext/issues/110)) ([bbe02bd](https://github.com/openwallet-foundation/credo-ts-didcomm-ext/commit/bbe02bdb1aeacc18caf8902bf1123345af802e7c))
+
+
+### Miscellaneous Chores
+
+* release 0.1.0 ([8467a7d](https://github.com/openwallet-foundation/credo-ts-didcomm-ext/commit/8467a7d9fb7f0ce3ad745803793d56d48351e3b6))
+
 ## [0.1.0](https://github.com/2060-io/credo-ts-didcomm-ext/compare/@2060.io/credo-ts-didcomm-user-profile@v0.0.8...@2060.io/credo-ts-didcomm-user-profile@v0.1.0) (2026-03-10)
 
 
