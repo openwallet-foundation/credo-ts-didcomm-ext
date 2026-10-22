@@ -36,18 +36,18 @@
     "test": "vitest run"
   },
   "devDependencies": {
-    "@credo-ts/askar": "^0.6.1",
-    "@credo-ts/core": "^0.6.1",
-    "@credo-ts/didcomm": "^0.6.1",
-    "@credo-ts/node": "^0.6.1",
-    "@openwallet-foundation/askar-nodejs": "^0.4.3",
-    "@openwallet-foundation/askar-shared": "^0.4.3",
+    "@credo-ts/askar": "^0.7.2",
+    "@credo-ts/core": "^0.7.2",
+    "@credo-ts/didcomm": "^0.7.2",
+    "@credo-ts/node": "^0.7.2",
+    "@openwallet-foundation/askar-nodejs": "0.6.0",
+    "@openwallet-foundation/askar-shared": "0.6.0",
     "@types/node-fetch": "^2.6.4",
     "@types/uuid": "^9.0.0"
   },
   "peerDependencies": {
-    "@credo-ts/core": "^0.6.1",
-    "@credo-ts/didcomm": "^0.6.1"
+    "@credo-ts/core": "^0.7.2",
+    "@credo-ts/didcomm": "^0.7.2"
   },
   "dependencies": {
     "class-transformer": "^0.5.1",

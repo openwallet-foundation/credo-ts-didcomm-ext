@@ -28,7 +28,7 @@ This repository was transferred from [2060.io](https://github.com/2060-io) to th
 | `@2060.io/credo-ts-didcomm-shorten-url`   | `@credo-ts/didcomm-shorten-url`   |
 | `@2060.io/credo-ts-didcomm-user-profile`  | `@credo-ts/didcomm-user-profile`  |
 
-To migrate, replace the old package name with the new package name in your `package.json` and in your imports. The module API did not change.
+To migrate, replace the old package name with the new package name in your `package.json` and in your imports. The module API did not change. The `@credo-ts` packages need Credo 0.7.2 or a later 0.7 release. If you are still on Credo 0.6, keep using the `@2060.io` packages.
 
 ## Development
 

@@ -9,7 +9,7 @@ import { CscaMasterListService } from '../src/services/CscaMasterListService'
 type ResolveFn = <T>(token: InjectionToken<T>) => T
 
 const createTestLogger = (): Logger => ({
-  logLevel: LogLevel.test,
+  logLevel: LogLevel.Test,
   test: vi.fn(),
   error: vi.fn(),
   warn: vi.fn(),

@@ -17,7 +17,7 @@ import { recordsAddedByType } from './recordUtils'
 import { SubjectInboundTransport } from './transport/SubjectInboundTransport'
 import { SubjectOutboundTransport } from './transport/SubjectOutboundTransport'
 
-const logger = new ConsoleLogger(LogLevel.off)
+const logger = new ConsoleLogger(LogLevel.Off)
 
 export type SubjectMessage = {
   message: DidCommEncryptedMessage

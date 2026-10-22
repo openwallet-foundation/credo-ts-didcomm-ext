@@ -91,7 +91,7 @@ describe('SodVerifierService Testing', () => {
 
     // Build DI dependencies
     const mlService = new MockCscaMasterListService([trustAnchor])
-    const logger: Logger = new ConsoleLogger(LogLevel.info)
+    const logger: Logger = new ConsoleLogger(LogLevel.Info)
     type MlDep = ConstructorParameters<typeof SodVerifierService>[0]
 
     // Instantiate the service
@@ -114,7 +114,7 @@ describe('SodVerifierService Testing', () => {
   })
 
   it('throws when no CSCA trust anchors are available', async () => {
-    const logger: Logger = new ConsoleLogger(LogLevel.info)
+    const logger: Logger = new ConsoleLogger(LogLevel.Info)
     type MlDep = ConstructorParameters<typeof SodVerifierService>[0]
     const emptyMl = new MockCscaMasterListService([])
     const noAnchorService = new SodVerifierService(emptyMl as unknown as MlDep, logger)
