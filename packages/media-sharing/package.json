@@ -1,6 +1,6 @@
 {
   "name": "@credo-ts/didcomm-media-sharing",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "DIDComm Media sharing protocol implementation for credo-ts",
   "homepage": "https://github.com/openwallet-foundation/credo-ts-didcomm-ext/tree/main/packages/media-sharing",
   "license": "Apache-2.0",
