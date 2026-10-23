@@ -130,7 +130,7 @@ export class CscaMasterListService {
         if (buf.length > 10000) {
           blocks.push(buf)
         }
-      } catch (error) {
+      } catch {
         // Skip malformed base64 block
       }
     }
@@ -190,7 +190,7 @@ export class CscaMasterListService {
               this.trustStore.set(thumbprint, x509Cert)
               loadedCount++
             }
-          } catch (error) {
+          } catch {
             // Corrupt cert, skip
           }
         }
@@ -202,7 +202,7 @@ export class CscaMasterListService {
         this.logger.info(
           `[CscaMasterListService] extractCSCACerts - Extracted ${loadedCount} CSCA certificates from one Master List entry.`,
         )
-      } catch (error) {
+      } catch {
         // Most entries are invalid, just skip and continue
         this.logger.warn('[CscaMasterListService] extractCSCACerts - Skipping invalid Master List entry.')
       }
@@ -264,7 +264,7 @@ export class CscaMasterListService {
       }
 
       return false
-    } catch (error) {
+    } catch {
       this.logger.error(
         '[CscaMasterListService] initialize - Failed to read cache metadata. Refreshing remote Master List.',
       )
@@ -331,7 +331,7 @@ export class CscaMasterListService {
   private parseMetadata(raw: string): { downloadedAt?: string; downloadedFileName?: string } | undefined {
     try {
       return JSON.parse(raw) as { downloadedAt?: string; downloadedFileName?: string }
-    } catch (error) {
+    } catch {
       this.logger.warn('[CscaMasterListService] initialize - Failed to parse metadata JSON.')
       return undefined
     }

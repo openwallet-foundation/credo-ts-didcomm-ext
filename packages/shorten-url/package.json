@@ -36,7 +36,6 @@
     "@credo-ts/core": "^0.7.2",
     "@credo-ts/didcomm": "^0.7.2",
     "@credo-ts/node": "^0.7.2",
-    "@hyperledger/aries-askar-nodejs": "^0.2.3",
     "ts-node-dev": "^2.0.0",
     "tsconfig-paths": "^3.10.1",
     "typescript": "~5.9.3"
@@ -47,7 +46,7 @@
   },
   "dependencies": {
     "class-transformer": "0.5.1",
-    "class-validator": "0.14.1",
+    "class-validator": "^0.14.3",
     "reflect-metadata": "^0.1.13",
     "tsyringe": "^4.10.0"
   },

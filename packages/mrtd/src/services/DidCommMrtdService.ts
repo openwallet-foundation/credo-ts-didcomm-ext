@@ -46,7 +46,7 @@ export class DidCommMrtdService {
       const parseResult = Mrz.parse(message.mrzData, { autocorrect: true })
 
       parsed = { valid: parseResult.valid, fields: parseResult.fields, format: parseResult.format }
-    } catch (error) {
+    } catch {
       // Unsupported format. Send raw data anyway
       parsed = { valid: false, fields: {} }
     }
@@ -98,7 +98,7 @@ export class DidCommMrtdService {
       const parseResult = parseEMrtdData(message.dataGroups)
 
       parsed = { valid: true, fields: parseResult }
-    } catch (error) {
+    } catch {
       // Unsupported format. Send raw data anyway
       parsed = { valid: false }
     }
