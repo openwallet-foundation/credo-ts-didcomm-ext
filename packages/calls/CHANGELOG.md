@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.2.0](https://github.com/openwallet-foundation/credo-ts-didcomm-ext/compare/didcomm-calls@v0.1.0...didcomm-calls@v0.2.0) (2026-10-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* upgrade to Credo 0.7.2 ([#191](https://github.com/openwallet-foundation/credo-ts-didcomm-ext/issues/191))
+* publish the packages under the @credo-ts scope ([#181](https://github.com/openwallet-foundation/credo-ts-didcomm-ext/issues/181))
+
+### Features
+
+* publish the packages under the [@credo-ts](https://github.com/credo-ts) scope ([#181](https://github.com/openwallet-foundation/credo-ts-didcomm-ext/issues/181)) ([166a6f7](https://github.com/openwallet-foundation/credo-ts-didcomm-ext/commit/166a6f79e04d5ef7c18049b4bd790bac3d850e3f))
+* upgrade to Credo 0.7.2 ([#191](https://github.com/openwallet-foundation/credo-ts-didcomm-ext/issues/191)) ([2c4f781](https://github.com/openwallet-foundation/credo-ts-didcomm-ext/commit/2c4f7814b548e5396c87b3f3a76ff4c3aee104ae))
+
 ## [0.1.0](https://github.com/2060-io/credo-ts-didcomm-ext/compare/@2060.io/credo-ts-didcomm-calls@v0.0.11...@2060.io/credo-ts-didcomm-calls@v0.1.0) (2026-03-10)
 
 
