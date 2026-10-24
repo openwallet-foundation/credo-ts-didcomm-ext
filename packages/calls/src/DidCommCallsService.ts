@@ -1,7 +1,6 @@
-import type { DidCommCallType } from './messages/CallOfferMessage'
-
 import { CallAcceptMessage } from './messages/CallAcceptMessage'
 import { CallEndMessage } from './messages/CallEndMessage'
+import type { DidCommCallType } from './messages/CallOfferMessage'
 import { CallOfferMessage } from './messages/CallOfferMessage'
 import { CallRejectMessage } from './messages/CallRejectMessage'
 

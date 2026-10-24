@@ -1,4 +1,4 @@
-import type { SodVerification } from './SodVerification'
+import { COM, DG1, DG2, DG3, DG4, DG5, DG7, DG11, DG12, DG14, DG15, PKD, SOD } from '@li0ard/tsemrtd'
 import type { SecurityInfos } from '@li0ard/tsemrtd/dist/asn1/eac'
 import type { CSCAMasterList } from '@li0ard/tsemrtd/dist/asn1/pkd'
 import type {
@@ -11,10 +11,8 @@ import type {
   DecodedSecurtyObjectOfDocument,
 } from '@li0ard/tsemrtd/dist/consts/interfaces'
 import type { SubjectPublicKeyInfo } from '@peculiar/asn1-x509'
-
-import { COM, DG1, DG2, DG3, DG4, DG5, DG7, DG11, DG12, DG14, DG15, SOD, PKD } from '@li0ard/tsemrtd'
-
 import { EMrtdDataGroup } from './EMrtdDataGroup'
+import type { SodVerification } from './SodVerification'
 
 export type EMrtdData = {
   raw: Record<string, string>

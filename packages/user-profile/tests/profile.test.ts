@@ -1,17 +1,15 @@
 import './setup'
 
-import type { DidCommConnectionProfileUpdatedEvent, DidCommUserProfileRequestedEvent } from '../src/services'
-import type { DidCommConnectionRecord, DidCommEncryptedMessage } from '@credo-ts/didcomm'
-
 import { AskarModule } from '@credo-ts/askar'
 import { Agent, ConsoleLogger, LogLevel } from '@credo-ts/core'
+import type { DidCommConnectionRecord, DidCommEncryptedMessage } from '@credo-ts/didcomm'
 import { DidCommDidExchangeState, DidCommModule } from '@credo-ts/didcomm'
 import { agentDependencies } from '@credo-ts/node'
 import { askarNodeJS } from '@openwallet-foundation/askar-nodejs'
 import { filter, firstValueFrom, map, Subject, timeout } from 'rxjs'
-
 import { DidCommUserProfileModule } from '../src/DidCommUserProfileModule'
 import { getConnectionProfile } from '../src/model'
+import type { DidCommConnectionProfileUpdatedEvent, DidCommUserProfileRequestedEvent } from '../src/services'
 import { DidCommProfileEventTypes } from '../src/services'
 
 import { SubjectInboundTransport } from './transport/SubjectInboundTransport'
@@ -84,7 +82,7 @@ describe('profile test', () => {
 
     const { connectionRecord } = await bobAgent.didcomm.oob.receiveInvitationFromUrl(
       outOfBandRecord.outOfBandInvitation.toUrl({ domain: 'https://example.com/ssi' }),
-      { autoAcceptConnection: true, label: 'bob' },
+      { autoAcceptConnection: true, label: 'bob' }
     )
 
     bobConnectionRecord = await bobAgent.didcomm.connections.returnWhenIsConnected(connectionRecord!.id)
@@ -114,11 +112,11 @@ describe('profile test', () => {
         .observable<DidCommConnectionProfileUpdatedEvent>(DidCommProfileEventTypes.ConnectionProfileUpdated)
         .pipe(
           filter(
-            (event: DidCommConnectionProfileUpdatedEvent) => event.payload.connection.id === aliceConnectionRecord.id,
+            (event: DidCommConnectionProfileUpdatedEvent) => event.payload.connection.id === aliceConnectionRecord.id
           ),
           map((event: DidCommConnectionProfileUpdatedEvent) => event.payload.profile),
-          timeout(5000),
-        ),
+          timeout(5000)
+        )
     )
 
     await bobAgent.modules.profile.updateUserProfileData({
@@ -135,7 +133,7 @@ describe('profile test', () => {
         displayName: 'Bob',
         description: 'My bio',
         displayPicture: { mimeType: 'image/png', links: ['http://download'] },
-      }),
+      })
     )
   })
 
@@ -145,11 +143,11 @@ describe('profile test', () => {
         .observable<DidCommConnectionProfileUpdatedEvent>(DidCommProfileEventTypes.ConnectionProfileUpdated)
         .pipe(
           filter(
-            (event: DidCommConnectionProfileUpdatedEvent) => event.payload.connection.id === aliceConnectionRecord.id,
+            (event: DidCommConnectionProfileUpdatedEvent) => event.payload.connection.id === aliceConnectionRecord.id
           ),
           map((event: DidCommConnectionProfileUpdatedEvent) => event.payload.profile),
-          timeout(5000),
-        ),
+          timeout(5000)
+        )
     )
 
     await bobAgent.modules.profile.updateUserProfileData({
@@ -168,7 +166,7 @@ describe('profile test', () => {
         description: 'My bio',
         displayPicture: null,
         displayIcon: '',
-      }),
+      })
     )
   })
 
@@ -178,11 +176,11 @@ describe('profile test', () => {
         .observable<DidCommConnectionProfileUpdatedEvent>(DidCommProfileEventTypes.ConnectionProfileUpdated)
         .pipe(
           filter(
-            (event: DidCommConnectionProfileUpdatedEvent) => event.payload.connection.id === aliceConnectionRecord.id,
+            (event: DidCommConnectionProfileUpdatedEvent) => event.payload.connection.id === aliceConnectionRecord.id
           ),
           map((event: DidCommConnectionProfileUpdatedEvent) => event.payload.profile),
-          timeout(5000),
-        ),
+          timeout(5000)
+        )
     )
 
     await bobAgent.modules.profile.updateUserProfileData({
@@ -199,7 +197,7 @@ describe('profile test', () => {
         displayName: 'Daniel',
         description: 'My bio',
         displayPicture: undefined,
-      }),
+      })
     )
   })
 
@@ -209,11 +207,11 @@ describe('profile test', () => {
         .observable<DidCommConnectionProfileUpdatedEvent>(DidCommProfileEventTypes.ConnectionProfileUpdated)
         .pipe(
           filter(
-            (event: DidCommConnectionProfileUpdatedEvent) => event.payload.connection.id === aliceConnectionRecord.id,
+            (event: DidCommConnectionProfileUpdatedEvent) => event.payload.connection.id === aliceConnectionRecord.id
           ),
           map((event: DidCommConnectionProfileUpdatedEvent) => event.payload.profile),
-          timeout(5000),
-        ),
+          timeout(5000)
+        )
     )
 
     await bobAgent.modules.profile.sendUserProfile({
@@ -233,7 +231,7 @@ describe('profile test', () => {
         organizationDid: 'orgDid',
         whatever: 'I want',
         displayIcon: { base64: 'base64' },
-      }),
+      })
     )
 
     expect(getConnectionProfile(await aliceAgent.didcomm.connections.getById(aliceConnectionRecord.id))).toEqual(
@@ -241,7 +239,7 @@ describe('profile test', () => {
         organizationDid: 'orgDid',
         whatever: 'I want',
         displayIcon: { base64: 'base64' },
-      }),
+      })
     )
   })
 
@@ -252,8 +250,8 @@ describe('profile test', () => {
         .pipe(
           filter((event: DidCommUserProfileRequestedEvent) => event.payload.connection.id === aliceConnectionRecord.id),
           map((event: DidCommUserProfileRequestedEvent) => event.payload.query),
-          timeout(5000),
-        ),
+          timeout(5000)
+        )
     )
 
     await bobAgent.modules.profile.requestUserProfile({ connectionId: bobConnectionRecord.id })

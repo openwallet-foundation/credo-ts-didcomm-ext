@@ -1,6 +1,6 @@
 import type { JsonValue } from '@credo-ts/core'
 
-import { CredoError, BaseRecord, utils } from '@credo-ts/core'
+import { BaseRecord, CredoError, utils } from '@credo-ts/core'
 import { Type } from 'class-transformer'
 
 import { DidCommMediaSharingRole, DidCommMediaSharingState } from '../model'
@@ -66,7 +66,7 @@ export interface DidCommMediaSharingStorageProps {
   sentTime?: Date
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// biome-ignore lint/suspicious/noExplicitAny: no explanation
 export class DidCommMediaSharingRecord extends BaseRecord<any, any, any> {
   public connectionId!: string
   public threadId?: string
@@ -127,7 +127,7 @@ export class DidCommMediaSharingRecord extends BaseRecord<any, any, any> {
 
     if (!expectedStates.includes(this.state)) {
       throw new Error(
-        `Media sharing record is in invalid state ${this.state}. Valid states are: ${expectedStates.join(', ')}.`,
+        `Media sharing record is in invalid state ${this.state}. Valid states are: ${expectedStates.join(', ')}.`
       )
     }
   }

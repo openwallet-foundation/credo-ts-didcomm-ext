@@ -17,7 +17,7 @@ export class CallRejectHandler implements DidCommMessageHandler {
   /* The result can be hooked into through the generic message processed event
    */
   public async handle(
-    inboundMessage: DidCommMessageHandlerInboundMessage<CallRejectHandler>,
+    inboundMessage: DidCommMessageHandlerInboundMessage<CallRejectHandler>
   ): Promise<DidCommOutboundMessageContext | undefined> {
     inboundMessage.assertReadyConnection()
     return

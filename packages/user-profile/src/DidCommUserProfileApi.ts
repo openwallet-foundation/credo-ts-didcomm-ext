@@ -1,8 +1,7 @@
-import type { DidCommUserProfileKey } from './messages'
-import type { DidCommUserProfileData, GetUserProfileDataReturnType } from './model'
-
 import { AgentContext, injectable } from '@credo-ts/core'
 import { DidCommConnectionService, DidCommMessageSender, DidCommOutboundMessageContext } from '@credo-ts/didcomm'
+import type { DidCommUserProfileKey } from './messages'
+import type { DidCommUserProfileData, GetUserProfileDataReturnType } from './model'
 
 import { DidCommUserProfileService } from './services'
 
@@ -12,7 +11,7 @@ export class DidCommUserProfileApi {
     private readonly agentContext: AgentContext,
     private readonly messageSender: DidCommMessageSender,
     private readonly userProfileService: DidCommUserProfileService,
-    private readonly connectionService: DidCommConnectionService,
+    private readonly connectionService: DidCommConnectionService
   ) {}
 
   /**
@@ -28,7 +27,7 @@ export class DidCommUserProfileApi {
     const message = await this.userProfileService.createRequestProfileMessage({ query: options.query })
 
     await this.messageSender.sendMessage(
-      new DidCommOutboundMessageContext(message, { agentContext: this.agentContext, connection }),
+      new DidCommOutboundMessageContext(message, { agentContext: this.agentContext, connection })
     )
 
     return { messageId: message.id }
@@ -68,7 +67,7 @@ export class DidCommUserProfileApi {
     })
 
     await this.messageSender.sendMessage(
-      new DidCommOutboundMessageContext(message, { agentContext: this.agentContext, connection }),
+      new DidCommOutboundMessageContext(message, { agentContext: this.agentContext, connection })
     )
 
     return { messageId: message.id }

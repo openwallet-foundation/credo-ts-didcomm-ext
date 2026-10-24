@@ -1,10 +1,8 @@
-import type { DidCommMessageReactionsReceivedEvent } from './DidcommReactionsEvents'
-import type { MessageReactionsMessageOptions } from './messages'
-import type { DidCommInboundMessageContext } from '@credo-ts/didcomm'
-
 import { EventEmitter, injectable } from '@credo-ts/core'
-
+import type { DidCommInboundMessageContext } from '@credo-ts/didcomm'
+import type { DidCommMessageReactionsReceivedEvent } from './DidcommReactionsEvents'
 import { DidCommReactionsEventTypes } from './DidcommReactionsEvents'
+import type { MessageReactionsMessageOptions } from './messages'
 import { MessageReactionsMessage } from './messages'
 
 @injectable()

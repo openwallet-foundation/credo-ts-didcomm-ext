@@ -1,4 +1,4 @@
-import type { DependencyManager, Module, AgentContext } from '@credo-ts/core'
+import type { AgentContext, DependencyManager, Module } from '@credo-ts/core'
 
 import { DidCommFeatureRegistry, DidCommMessageHandlerRegistry, DidCommProtocol } from '@credo-ts/didcomm'
 
@@ -29,7 +29,7 @@ export class DidCommCallsModule implements Module {
           DidCommCallRole.AudioCallee,
           DidCommCallRole.AudioCaller,
         ],
-      }),
+      })
     )
 
     messageHandlerRegistry.registerMessageHandlers([

@@ -2,7 +2,7 @@ import type { ParsedMessageType } from '@credo-ts/didcomm'
 
 import { DidCommMessage, parseMessageType } from '@credo-ts/didcomm'
 import { Expose, Transform, TransformationType, Type } from 'class-transformer'
-import { IsArray, IsEnum, IsString, IsDate, IsInstance, ValidateNested } from 'class-validator'
+import { IsArray, IsDate, IsEnum, IsInstance, IsString, ValidateNested } from 'class-validator'
 
 export enum DidCommMessageReactionAction {
   React = 'react',
@@ -70,7 +70,7 @@ export class MessageReactionsMessage extends DidCommMessage {
   public reactions!: DidCommMessageReaction[]
 
   public static readonly type: ParsedMessageType = parseMessageType(
-    'https://didcomm.org/reactions/1.0/message-reactions',
+    'https://didcomm.org/reactions/1.0/message-reactions'
   )
   public readonly type = MessageReactionsMessage.type.messageTypeUri
 }

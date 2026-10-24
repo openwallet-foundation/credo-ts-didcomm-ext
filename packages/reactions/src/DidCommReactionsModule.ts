@@ -25,7 +25,7 @@ export class DidCommReactionsModule implements Module {
       new DidCommProtocol({
         id: 'https://didcomm.org/reactions/1.0',
         roles: [DidCommReactionRole.Receiver, DidCommReactionRole.Sender],
-      }),
+      })
     )
 
     messageHandlerRegistry.registerMessageHandler(new MessageReactionsHandler(reactionsService))

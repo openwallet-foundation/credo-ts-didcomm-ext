@@ -38,4 +38,4 @@ pnpm validate
 pnpm test
 ```
 
-Releases use [release-please](https://github.com/googleapis/release-please). A release pull request is created for each package when a commit with a `feat` or `fix` type lands on `main`. The release workflow publishes the package to npm with [trusted publishing](https://docs.npmjs.com/trusted-publishers).
+Releases use [changesets](https://github.com/changesets/changesets). Add a changeset with `pnpm changeset` to every pull request that changes a published package. When changesets land on `main`, the release workflow opens a release pull request that bumps the versions, and merging it publishes the packages to npm with [trusted publishing](https://docs.npmjs.com/trusted-publishers).

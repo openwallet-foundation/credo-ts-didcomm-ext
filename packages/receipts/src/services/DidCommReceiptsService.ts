@@ -1,14 +1,12 @@
-import type { MessageReceiptsReceivedEvent, RequestReceiptsReceivedEvent } from './ReceiptsEvents'
+import { EventEmitter, injectable } from '@credo-ts/core'
 import type { DidCommInboundMessageContext } from '@credo-ts/didcomm'
-
-import { injectable, EventEmitter } from '@credo-ts/core'
-
 import {
   DidCommMessageReceiptsMessage,
   type DidCommMessageReceiptsMessageOptions,
   DidCommRequestReceiptsMessage,
   type DidCommRequestReceiptsMessageOptions,
 } from '../messages'
+import type { MessageReceiptsReceivedEvent, RequestReceiptsReceivedEvent } from './ReceiptsEvents'
 
 import { ReceiptsEventTypes } from './ReceiptsEvents'
 

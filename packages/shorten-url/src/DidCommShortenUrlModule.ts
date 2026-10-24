@@ -1,9 +1,7 @@
-import type { DidCommShortenUrlModuleConfigOptions } from './DidCommShortenUrlModuleConfig'
 import type { AgentContext, DependencyManager, Module } from '@credo-ts/core'
-
 import { DidCommFeatureRegistry, DidCommMessageHandlerRegistry, DidCommProtocol } from '@credo-ts/didcomm'
-
 import { DidCommShortenUrlApi } from './DidCommShortenUrlApi'
+import type { DidCommShortenUrlModuleConfigOptions } from './DidCommShortenUrlModuleConfig'
 import { DidCommShortenUrlModuleConfig } from './DidCommShortenUrlModuleConfig'
 import { DidCommShortenUrlService } from './DidCommShortenUrlService'
 import {
@@ -38,7 +36,7 @@ export class DidCommShortenUrlModule implements Module {
       new DidCommProtocol({
         id: 'https://didcomm.org/shorten-url/1.0',
         roles: this.config.roles,
-      }),
+      })
     )
 
     messageHandlerRegistry.registerMessageHandlers([

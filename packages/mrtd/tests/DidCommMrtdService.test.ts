@@ -52,7 +52,7 @@ describe('Didcomm MRTD', () => {
           '@type': 'https://didcomm.org/mrtd/1.0/mrz-data',
           mrzData: 'Something',
           '~thread': expect.objectContaining({ thid: '5678-5678-5678-5678' }),
-        }),
+        })
       )
     })
   })
@@ -80,7 +80,7 @@ describe('Didcomm MRTD', () => {
                 SOD: expect.any(String),
               },
           '~thread': expect.objectContaining({ thid: '5678-5678-5678-5678' }),
-        }),
+        })
       )
     })
   })
@@ -133,7 +133,7 @@ describe('Didcomm MRTD', () => {
         dataGroups: {
           raw: isPassportEmpty ? {} : expectedRaw,
           parsed: {
-            valid: isPassportEmpty ? false : true,
+            valid: !isPassportEmpty,
             fields: isPassportEmpty ? undefined : expectedFields,
           },
         },
@@ -160,7 +160,7 @@ describe('Didcomm MRTD', () => {
         {
           agentContext: agentContext,
           connection: mockConnectionRecord,
-        },
+        }
       )
 
       const eventEmitter = agentContext.dependencyManager.resolve(EventEmitter)

@@ -1,20 +1,18 @@
-import type { DidCommShortenUrlRepository } from '../src/repository'
 import type { AgentContext, EventEmitter } from '@credo-ts/core'
 import type { DidCommInboundMessageContext, DidCommMessage } from '@credo-ts/didcomm'
-
 import { AckStatus } from '@credo-ts/didcomm'
-import { beforeEach, vi, type Mocked, describe } from 'vitest'
-
+import { beforeEach, describe, type Mocked, vi } from 'vitest'
 import { DidCommShortenUrlEventTypes } from '../src/DidCommShortenUrlEvents'
 import { DidCommShortenUrlModuleConfig } from '../src/DidCommShortenUrlModuleConfig'
 import { DidCommShortenUrlService } from '../src/DidCommShortenUrlService'
 import {
+  InvalidateShortenedUrlMessage,
   RequestShortenedUrlMessage,
   ShortenedUrlMessage,
-  InvalidateShortenedUrlMessage,
   ShortenUrlAckMessage,
 } from '../src/messages'
 import { ShortenUrlRole, ShortenUrlState } from '../src/models'
+import type { DidCommShortenUrlRepository } from '../src/repository'
 import { DidCommShortenUrlRecord } from '../src/repository'
 
 describe('DidCommShortenUrlService', () => {
@@ -78,7 +76,7 @@ describe('DidCommShortenUrlService', () => {
         url: 'https://example.com',
         goalCode: 'shorten',
         requestedValiditySeconds: -1,
-      }),
+      })
     ).toThrow('requested_validity_seconds MUST be a non-negative integer')
 
     expect(() =>
@@ -86,7 +84,7 @@ describe('DidCommShortenUrlService', () => {
         url: 'https://example.com',
         goalCode: 'shorten',
         requestedValiditySeconds: 3.5,
-      }),
+      })
     ).toThrow('requested_validity_seconds MUST be a non-negative integer')
   })
 
@@ -108,7 +106,7 @@ describe('DidCommShortenUrlService', () => {
         state: ShortenUrlState.RequestReceived,
         role: ShortenUrlRole.UrlShortener,
         url: 'https://example.com?oob=abc',
-      }),
+      })
     )
     expect(emit).toHaveBeenCalledTimes(1)
     const [, event] = emit.mock.calls[0]
@@ -130,7 +128,7 @@ describe('DidCommShortenUrlService', () => {
     Reflect.set(msg, 'requestedValiditySeconds', -5)
 
     await expect(service.processRequest(makeCtx(msg))).rejects.toThrow(
-      'request-shortened-url MUST include a non-negative integer requested_validity_seconds',
+      'request-shortened-url MUST include a non-negative integer requested_validity_seconds'
     )
     expect(emit).not.toHaveBeenCalled()
     expect(repository.save).not.toHaveBeenCalled()
@@ -184,7 +182,7 @@ describe('DidCommShortenUrlService', () => {
         state: ShortenUrlState.ShortenedReceived,
         shortenedUrl: 'https://s.io/xyz',
         expiresTime: expiresAt,
-      }),
+      })
     )
     const [, event] = emit.mock.calls[0]
     expect(event.type).toBe(DidCommShortenUrlEventTypes.DidCommShortenedUrlReceived)
@@ -203,7 +201,7 @@ describe('DidCommShortenUrlService', () => {
     Reflect.set(msg, 'thread', undefined)
 
     await expect(service.processShortenedUrl(makeCtx(msg))).rejects.toThrow(
-      'shortened-url message MUST include the thread id of the related request',
+      'shortened-url message MUST include the thread id of the related request'
     )
     expect(emit).not.toHaveBeenCalled()
     expect(repository.update).not.toHaveBeenCalled()
@@ -229,7 +227,7 @@ describe('DidCommShortenUrlService', () => {
     await service.processInvalidate(makeCtx(msg))
     expect(repository.update).toHaveBeenCalledWith(
       agentContext,
-      expect.objectContaining({ state: ShortenUrlState.InvalidationReceived }),
+      expect.objectContaining({ state: ShortenUrlState.InvalidationReceived })
     )
     const [, event] = emit.mock.calls[0]
     expect(event.type).toBe(DidCommShortenUrlEventTypes.DidCommInvalidateShortenedUrlReceived)
@@ -258,7 +256,7 @@ describe('DidCommShortenUrlService', () => {
     await service.processInvalidate(makeCtx(msg))
     expect(repository.update).toHaveBeenCalledWith(
       agentContext,
-      expect.objectContaining({ state: ShortenUrlState.InvalidationReceived }),
+      expect.objectContaining({ state: ShortenUrlState.InvalidationReceived })
     )
   })
 
@@ -269,7 +267,7 @@ describe('DidCommShortenUrlService', () => {
     const msg = new InvalidateShortenedUrlMessage({ shortenedUrl: 'https://s.io/xyz' })
 
     await expect(service.processInvalidate(makeCtx(msg))).rejects.toThrow(
-      'No shorten-url record found for the provided shortened_url on this connection',
+      'No shorten-url record found for the provided shortened_url on this connection'
     )
   })
 
@@ -293,7 +291,7 @@ describe('DidCommShortenUrlService', () => {
 
     expect(repository.update).toHaveBeenCalledWith(
       agentContext,
-      expect.objectContaining({ state: ShortenUrlState.Invalidated }),
+      expect.objectContaining({ state: ShortenUrlState.Invalidated })
     )
     const [, event] = emit.mock.calls[0]
     expect(event.type).toBe(DidCommShortenUrlEventTypes.DidCommShortenedUrlInvalidated)
@@ -307,7 +305,7 @@ describe('DidCommShortenUrlService', () => {
 
     const ack = new ShortenUrlAckMessage({ status: AckStatus.OK, threadId: 'unknown' })
     await expect(service.processAck(makeCtx(ack))).rejects.toThrow(
-      'No shorten-url record found for the provided ack thread id on this connection',
+      'No shorten-url record found for the provided ack thread id on this connection'
     )
   })
 })

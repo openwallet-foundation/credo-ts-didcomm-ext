@@ -1,4 +1,4 @@
-import type { DependencyManager, Module, AgentContext } from '@credo-ts/core'
+import type { AgentContext, DependencyManager, Module } from '@credo-ts/core'
 
 import { DidCommFeatureRegistry, DidCommMessageHandlerRegistry, DidCommProtocol } from '@credo-ts/didcomm'
 
@@ -37,7 +37,7 @@ export class DidCommUserProfileModule implements Module {
     featureRegistry.register(
       new DidCommProtocol({
         id: 'https://didcomm.org/user-profile/1.0',
-      }),
+      })
     )
 
     messageHandlerRegistry.registerMessageHandlers([

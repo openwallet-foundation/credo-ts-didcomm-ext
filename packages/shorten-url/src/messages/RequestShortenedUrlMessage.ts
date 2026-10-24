@@ -40,7 +40,7 @@ export class RequestShortenedUrlMessage extends DidCommMessage {
   public shortUrlSlug?: string
 
   public static readonly type: ReturnType<typeof parseMessageType> = parseMessageType(
-    'https://didcomm.org/shorten-url/1.0/request-shortened-url',
+    'https://didcomm.org/shorten-url/1.0/request-shortened-url'
   )
   @IsValidMessageType(RequestShortenedUrlMessage.type)
   public readonly type = RequestShortenedUrlMessage.type.messageTypeUri

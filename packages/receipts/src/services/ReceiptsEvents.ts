@@ -1,5 +1,5 @@
-import type { DidCommMessageReceipt, DidCommRequestedReceipt } from '../messages'
 import type { BaseEvent } from '@credo-ts/core'
+import type { DidCommMessageReceipt, DidCommRequestedReceipt } from '../messages'
 
 export enum ReceiptsEventTypes {
   MessageReceiptsReceived = 'MessageReceiptsReceived ',

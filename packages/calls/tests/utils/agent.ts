@@ -1,8 +1,8 @@
+import { randomUUID } from 'node:crypto'
 import { AskarModule } from '@credo-ts/askar'
 import { Agent } from '@credo-ts/core'
 import { agentDependencies } from '@credo-ts/node'
 import { askar } from '@openwallet-foundation/askar-nodejs'
-import { randomUUID } from 'node:crypto'
 
 export const agent = new Agent({
   dependencies: agentDependencies,

@@ -1,4 +1,4 @@
-import { AgentContext, injectable, CredoError } from '@credo-ts/core'
+import { AgentContext, CredoError, injectable } from '@credo-ts/core'
 import { DidCommConnectionService, DidCommMessageSender, DidCommOutboundMessageContext } from '@credo-ts/didcomm'
 
 import { DidCommShortenUrlService } from './DidCommShortenUrlService'
@@ -12,7 +12,7 @@ export class DidCommShortenUrlApi {
     private readonly shortenService: DidCommShortenUrlService,
     private readonly shortenUrlRepository: DidCommShortenUrlRepository,
     private readonly connectionService: DidCommConnectionService,
-    private readonly agentContext: AgentContext,
+    private readonly agentContext: AgentContext
   ) {}
 
   /**
@@ -57,7 +57,7 @@ export class DidCommShortenUrlApi {
     await this.shortenUrlRepository.save(this.agentContext, record)
 
     await this.messageSender.sendMessage(
-      new DidCommOutboundMessageContext(message, { agentContext: this.agentContext, connection }),
+      new DidCommOutboundMessageContext(message, { agentContext: this.agentContext, connection })
     )
     return { messageId: message.id }
   }
@@ -87,19 +87,19 @@ export class DidCommShortenUrlApi {
 
     if (record.shortenedUrl) {
       throw new CredoError(
-        `Shortened URL already generated for record ${options.recordId} (existing shortened URL: ${record.shortenedUrl}).`,
+        `Shortened URL already generated for record ${options.recordId} (existing shortened URL: ${record.shortenedUrl}).`
       )
     }
 
     if (record.state === ShortenUrlState.InvalidationSent) {
       throw new CredoError(
-        `Cannot send shortened URL for record ${options.recordId} because it was already invalidated.`,
+        `Cannot send shortened URL for record ${options.recordId} because it was already invalidated.`
       )
     }
 
     if (record.state !== ShortenUrlState.RequestReceived) {
       throw new CredoError(
-        `Shortened URL already generated for record ${options.recordId} (current state: ${record.state}).`,
+        `Shortened URL already generated for record ${options.recordId} (current state: ${record.state}).`
       )
     }
 
@@ -124,7 +124,7 @@ export class DidCommShortenUrlApi {
     })
 
     await this.messageSender.sendMessage(
-      new DidCommOutboundMessageContext(message, { agentContext: this.agentContext, connection }),
+      new DidCommOutboundMessageContext(message, { agentContext: this.agentContext, connection })
     )
     return { messageId: message.id }
   }
@@ -161,7 +161,7 @@ export class DidCommShortenUrlApi {
     await this.shortenUrlRepository.update(this.agentContext, record)
 
     await this.messageSender.sendMessage(
-      new DidCommOutboundMessageContext(message, { agentContext: this.agentContext, connection }),
+      new DidCommOutboundMessageContext(message, { agentContext: this.agentContext, connection })
     )
     return { messageId: message.id }
   }

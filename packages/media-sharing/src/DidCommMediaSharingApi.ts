@@ -34,7 +34,7 @@ export class DidCommMediaSharingApi {
     private readonly messageSender: DidCommMessageSender,
     private readonly mediaSharingService: DidCommMediaSharingService,
     private readonly connectionService: DidCommConnectionService,
-    private readonly agentContext: AgentContext,
+    private readonly agentContext: AgentContext
   ) {}
 
   /**
@@ -74,7 +74,7 @@ export class DidCommMediaSharingApi {
         agentContext: this.agentContext,
         connection,
         associatedRecord: record,
-      }),
+      })
     )
 
     return record
@@ -97,7 +97,7 @@ export class DidCommMediaSharingApi {
       new DidCommOutboundMessageContext(payload, {
         agentContext: this.agentContext,
         connection,
-      }),
+      })
     )
 
     return { messageId: payload.id }
@@ -127,7 +127,7 @@ export class DidCommMediaSharingApi {
    */
   public async findAllByQuery(
     query: Query<DidCommMediaSharingRecord>,
-    queryOptions?: QueryOptions,
+    queryOptions?: QueryOptions
   ): Promise<DidCommMediaSharingRecord[]> {
     return this.mediaSharingService.findAllByQuery(this.agentContext, query, queryOptions)
   }

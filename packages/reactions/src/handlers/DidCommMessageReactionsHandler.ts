@@ -1,9 +1,9 @@
-import type { DidCommReactionsService } from '../DidCommReactionsService'
 import type {
   DidCommMessageHandler,
   DidCommMessageHandlerInboundMessage,
   DidCommOutboundMessageContext,
 } from '@credo-ts/didcomm'
+import type { DidCommReactionsService } from '../DidCommReactionsService'
 
 import { MessageReactionsMessage } from '../messages/DidCommMessageReactionsMessage'
 
@@ -16,7 +16,7 @@ export class DidCommMessageReactionsHandler implements DidCommMessageHandler {
     this.reactionsService = didcommReactionsService
   }
   public async handle(
-    inboundMessage: DidCommMessageHandlerInboundMessage<DidCommMessageReactionsHandler>,
+    inboundMessage: DidCommMessageHandlerInboundMessage<DidCommMessageReactionsHandler>
   ): Promise<DidCommOutboundMessageContext | undefined> {
     await this.reactionsService.processReactions(inboundMessage)
     return

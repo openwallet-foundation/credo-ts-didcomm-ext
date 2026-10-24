@@ -1,5 +1,5 @@
-export { CallOfferMessage } from './CallOfferMessage'
-export type { DidCommCallType } from './CallOfferMessage'
 export { CallAcceptMessage } from './CallAcceptMessage'
-export { CallRejectMessage } from './CallRejectMessage'
 export { CallEndMessage } from './CallEndMessage'
+export type { DidCommCallType } from './CallOfferMessage'
+export { CallOfferMessage } from './CallOfferMessage'
+export { CallRejectMessage } from './CallRejectMessage'

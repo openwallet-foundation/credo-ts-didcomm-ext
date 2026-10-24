@@ -1,6 +1,6 @@
+import type { BaseEvent } from '@credo-ts/core'
 import type { DidCommMediaSharingState } from './model'
 import type { DidCommMediaSharingRecord } from './repository'
-import type { BaseEvent } from '@credo-ts/core'
 
 export enum DidCommMediaSharingEventTypes {
   StateChanged = 'DidCommMediaSharingStateChangedEvent',

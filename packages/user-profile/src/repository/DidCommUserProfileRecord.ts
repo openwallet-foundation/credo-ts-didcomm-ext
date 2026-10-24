@@ -1,6 +1,5 @@
+import { BaseRecord, type TagsBase, utils } from '@credo-ts/core'
 import type { DidCommUserProfileData, PictureData } from '../model'
-
-import { BaseRecord, utils, type TagsBase } from '@credo-ts/core'
 
 export interface UserProfileStorageProps extends DidCommUserProfileData {
   id?: string

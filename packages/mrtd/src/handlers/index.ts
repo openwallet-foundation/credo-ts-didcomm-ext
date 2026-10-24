@@ -1,5 +1,5 @@
 export { EMrtdDataHandler } from './EMrtdDataHandler'
 export { EMrtdDataRequestHandler } from './EMrtdDataRequestHandler'
+export { MrtdProblemReportHandler } from './MrtdProblemReportHandler'
 export { MrzDataHandler } from './MrzDataHandler'
 export { MrzDataRequestHandler } from './MrzDataRequestHandler'
-export { MrtdProblemReportHandler } from './MrtdProblemReportHandler'

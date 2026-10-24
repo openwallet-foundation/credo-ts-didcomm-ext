@@ -1,2 +1,2 @@
-export * from './DidCommRequestProfileHandler'
 export * from './DidCommProfileHandler'
+export * from './DidCommRequestProfileHandler'

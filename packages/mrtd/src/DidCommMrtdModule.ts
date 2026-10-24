@@ -1,10 +1,8 @@
-import type { DidCommMrtdModuleConfigOptions } from './config/DidCommMrtdModuleConfig'
 import type { AgentContext, DependencyManager, Module } from '@credo-ts/core'
-
 import { DidCommFeatureRegistry, DidCommMessageHandlerRegistry, DidCommProtocol } from '@credo-ts/didcomm'
-
-import { DidCommMrtdApi } from './DidCommMrtdApi'
+import type { DidCommMrtdModuleConfigOptions } from './config/DidCommMrtdModuleConfig'
 import { DidCommMrtdModuleConfig } from './config/DidCommMrtdModuleConfig'
+import { DidCommMrtdApi } from './DidCommMrtdApi'
 import {
   EMrtdDataHandler,
   EMrtdDataRequestHandler,
@@ -66,7 +64,7 @@ export class DidCommMrtdModule implements Module {
           DidCommMrtdRole.EMrtdDataRequester,
           DidCommMrtdRole.EMrtdDataResponder,
         ],
-      }),
+      })
     )
 
     messageHandlerRegistry.registerMessageHandlers([
@@ -91,12 +89,12 @@ export class DidCommMrtdModule implements Module {
       .initialize()
       .then(() => {
         logger.debug(
-          `[DidCommMrtdModule] CSCA MasterList loaded (${csaMasterList.getTrustAnchors().length} CSCA anchors).`,
+          `[DidCommMrtdModule] CSCA MasterList loaded (${csaMasterList.getTrustAnchors().length} CSCA anchors).`
         )
       })
       .catch((e) => {
         logger.error(
-          `[DidCommMrtdModule] CSCA MasterList Preload failed: ${e instanceof Error ? e.message : String(e)}`,
+          `[DidCommMrtdModule] CSCA MasterList Preload failed: ${e instanceof Error ? e.message : String(e)}`
         )
       })
   }

@@ -1,10 +1,9 @@
 import './setup'
 
 import type { AskarModule } from '@credo-ts/askar'
-import type { DidCommConnectionRecord, DidCommEncryptedMessage } from '@credo-ts/didcomm'
-
 import { AskarModule as AskarModuleValue } from '@credo-ts/askar'
 import { Agent, ConsoleLogger, LogLevel } from '@credo-ts/core'
+import type { DidCommConnectionRecord, DidCommEncryptedMessage } from '@credo-ts/didcomm'
 import { DidCommModule } from '@credo-ts/didcomm'
 import { agentDependencies } from '@credo-ts/node'
 import { askarNodeJS } from '@openwallet-foundation/askar-nodejs'
@@ -39,7 +38,7 @@ const buildAskarModule = (label: string) =>
 const buildAgent = (
   label: string,
   endpoint: string,
-  transports: { inbound: SubjectInboundTransport; outbound: SubjectOutboundTransport },
+  transports: { inbound: SubjectInboundTransport; outbound: SubjectOutboundTransport }
 ): MediaTestAgent =>
   new Agent({
     config: {
@@ -101,7 +100,7 @@ describe('media test', () => {
       outOfBandRecord.outOfBandInvitation.toUrl({
         domain: 'https://example.com/ssi',
       }),
-      { autoAcceptConnection: true, label: 'bob' },
+      { autoAcceptConnection: true, label: 'bob' }
     )
 
     await bobAgent.didcomm.connections.returnWhenIsConnected(connectionRecord!.id)
@@ -130,7 +129,7 @@ describe('media test', () => {
     const subjectAlice = new ReplaySubject<DidCommMediaSharingRecord>()
     const subjectBob = new ReplaySubject<DidCommMediaSharingRecord>()
     recordsAddedByType(aliceAgent, DidCommMediaSharingRecord).subscribe((record) =>
-      subjectAlice.next(record as DidCommMediaSharingRecord),
+      subjectAlice.next(record as DidCommMediaSharingRecord)
     )
 
     const aliceRecord = await aliceAgent.modules.media.create({
@@ -153,7 +152,7 @@ describe('media test', () => {
     })
 
     recordsAddedByType(bobAgent, DidCommMediaSharingRecord).subscribe((record) =>
-      subjectBob.next(record as DidCommMediaSharingRecord),
+      subjectBob.next(record as DidCommMediaSharingRecord)
     )
 
     const bobRecord = await firstValueFrom(subjectBob)
@@ -187,7 +186,7 @@ describe('media test', () => {
     })
 
     recordsAddedByType(bobAgent, DidCommMediaSharingRecord).subscribe((record) =>
-      subjectBob.next(record as DidCommMediaSharingRecord),
+      subjectBob.next(record as DidCommMediaSharingRecord)
     )
 
     const bobRecord = await firstValueFrom(subjectBob)
@@ -205,14 +204,14 @@ describe('media test', () => {
       aliceAgent.modules.media.share({
         recordId: aliceRecord.id,
         items: [{ mimeType: 'image/png', uri: 'http://blabla', json: { a: 1 } }],
-      }),
+      })
     ).rejects.toThrow('A shared media item must carry either uri or json')
 
     await expect(
       aliceAgent.modules.media.share({
         recordId: aliceRecord.id,
         items: [{ mimeType: 'image/png' }],
-      }),
+      })
     ).rejects.toThrow('A shared media item must carry either uri or json')
   })
 })

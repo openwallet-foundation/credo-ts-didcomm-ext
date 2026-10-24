@@ -10,5 +10,5 @@ export default mergeConfig(
       root: __dirname,
       include: ['tests/**/*.test.ts'],
     },
-  }),
+  })
 )

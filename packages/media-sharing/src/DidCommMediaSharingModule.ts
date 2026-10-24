@@ -34,7 +34,7 @@ export class DidCommMediaSharingModule implements Module {
       new DidCommProtocol({
         id: 'https://didcomm.org/media-sharing/1.0',
         roles: [DidCommMediaSharingRole.Sender, DidCommMediaSharingRole.Receiver],
-      }),
+      })
     )
 
     messageHandlerRegistry.registerMessageHandlers([

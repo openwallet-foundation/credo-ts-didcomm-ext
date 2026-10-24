@@ -1,7 +1,7 @@
-import type { FileSystem, InjectionToken, DependencyManager, AgentContext, Logger } from '@credo-ts/core'
+import type { AgentContext, DependencyManager, FileSystem, InjectionToken, Logger } from '@credo-ts/core'
 
 import { InjectionSymbols, LogLevel } from '@credo-ts/core'
-import { afterEach, describe, expect, test, vi, type Mock } from 'vitest'
+import { afterEach, describe, expect, type Mock, test, vi } from 'vitest'
 
 import { DidCommMrtdModuleConfig } from '../src/config/DidCommMrtdModuleConfig'
 import { CscaMasterListService } from '../src/services/CscaMasterListService'
@@ -41,7 +41,7 @@ const createService = (options: {
             ...options.metadata,
           },
           null,
-          2,
+          2
         )
       : JSON.stringify({ downloadedAt: new Date().toISOString() }, null, 2)
   const readMock =
@@ -101,7 +101,7 @@ const createService = (options: {
 
   const extractSpy = vi.spyOn(
     service as unknown as { _extractCSCACertsFromLDIF: (ldifContent: string) => Promise<void> },
-    '_extractCSCACertsFromLDIF',
+    '_extractCSCACertsFromLDIF'
   )
   extractSpy.mockImplementation(async () => {})
 
