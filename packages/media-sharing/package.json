@@ -41,7 +41,6 @@
     "@openwallet-foundation/askar-shared": "0.6.0",
     "@types/node": "^20.11.16",
     "@types/uuid": "^9.0.0",
-    "prettier": "^3.5.2",
     "tsconfig-paths": "^3.10.1",
     "tsdown": "^0.16.8",
     "typescript": "~5.9.3",

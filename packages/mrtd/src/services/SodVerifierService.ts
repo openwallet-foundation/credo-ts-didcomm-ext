@@ -1,9 +1,8 @@
-import type { SodVerification } from '../models/SodVerification'
-
-import { Hasher, inject, injectable, InjectionSymbols, TypedArrayEncoder, type Logger } from '@credo-ts/core'
+import { Hasher, InjectionSymbols, inject, injectable, type Logger, TypedArrayEncoder } from '@credo-ts/core'
 import { X509Certificate, X509ChainBuilder } from '@peculiar/x509'
-import { fromBER, Sequence, OctetString, ObjectIdentifier, Integer } from 'asn1js'
+import { fromBER, Integer, ObjectIdentifier, OctetString, Sequence } from 'asn1js'
 import { Certificate, ContentInfo, SignedData } from 'pkijs'
+import type { SodVerification } from '../models/SodVerification'
 
 import { CscaMasterListService } from './CscaMasterListService'
 
@@ -21,7 +20,7 @@ export class SodVerifierService {
    */
   public constructor(
     @inject(CscaMasterListService) private readonly mlService: CscaMasterListService,
-    @inject(InjectionSymbols.Logger) logger: Logger,
+    @inject(InjectionSymbols.Logger) logger: Logger
   ) {
     this.logger = logger
     this.trustAnchors = []
@@ -41,7 +40,7 @@ export class SodVerifierService {
 
       if (this.trustAnchors.length === 0) {
         this.logger.error(
-          '[SodVerifierService] verifySod - No CSCA trust anchors loaded. Please initialize CscaMasterListService first.',
+          '[SodVerifierService] verifySod - No CSCA trust anchors loaded. Please initialize CscaMasterListService first.'
         )
         throw new Error('No CSCA trust anchors loaded')
       }
@@ -74,7 +73,7 @@ export class SodVerifierService {
       const hashAlgorithm = this.oidToHashAlgo(hashAlgorithmOid)
 
       this.logger.info(
-        `[SodVerifierService] verifySod - Step 5: Digest algorithm OID: ${hashAlgorithmOid} => ${hashAlgorithm}`,
+        `[SodVerifierService] verifySod - Step 5: Digest algorithm OID: ${hashAlgorithmOid} => ${hashAlgorithm}`
       )
 
       this.logger.info('[SodVerifierService] verifySod - Step 6: Extracting Data Group hashes')
@@ -99,7 +98,7 @@ export class SodVerifierService {
 
         dgHashMap[`DG${dgNumber}`] = Buffer.from(dgHash)
         this.logger.info(
-          `[SodVerifierService] verifySod - Step 6: Found hash for DG${dgNumber}: ${Buffer.from(dgHash).toString('hex').slice(0, 16)}...`,
+          `[SodVerifierService] verifySod - Step 6: Found hash for DG${dgNumber}: ${Buffer.from(dgHash).toString('hex').slice(0, 16)}...`
         )
       }
 
@@ -113,7 +112,7 @@ export class SodVerifierService {
           const matches = Buffer.compare(computed, new Uint8Array(dgHashMap[dgName])) === 0
 
           this.logger.info(
-            `[SodVerifierService] verifySod - Step 7: Integrity check for ${dgName}: ${matches ? 'OK' : 'FAIL'}`,
+            `[SodVerifierService] verifySod - Step 7: Integrity check for ${dgName}: ${matches ? 'OK' : 'FAIL'}`
           )
           if (!matches) {
             const expectedHex = dgHashMap[dgName].toString('hex')
@@ -125,7 +124,7 @@ export class SodVerifierService {
           }
         } else {
           this.logger.warn(
-            `[SodVerifierService] verifySod - DataGroup ${dgName} missing from input. Skipping integrity check.`,
+            `[SodVerifierService] verifySod - DataGroup ${dgName} missing from input. Skipping integrity check.`
           )
         }
       }
@@ -138,32 +137,30 @@ export class SodVerifierService {
 
       // Try to find the Document Signer Certificate (DSC) using SID (issuer+serial)
       // ICAO fallback: if not found but only one certificate is present, use it
-      let docSignerCert: Certificate | undefined = undefined
+      let docSignerCert: Certificate | undefined
       if (Array.isArray(sodSignerCerts)) {
         docSignerCert = sodSignerCerts.find(
           (cert) =>
-            cert &&
-            cert.issuer &&
+            cert?.issuer &&
             cert.serialNumber &&
-            signerInfo.sid &&
-            signerInfo.sid.issuer &&
+            signerInfo.sid?.issuer &&
             signerInfo.sid.serialNumber &&
             typeof cert.issuer.isEqual === 'function' &&
             typeof cert.serialNumber.isEqual === 'function' &&
             cert.issuer.isEqual(signerInfo.sid.issuer) &&
-            cert.serialNumber.isEqual(signerInfo.sid.serialNumber),
+            cert.serialNumber.isEqual(signerInfo.sid.serialNumber)
         )
       }
       if (!docSignerCert && sodSignerCerts && sodSignerCerts.length === 1) {
         docSignerCert = sodSignerCerts[0]
         this.logger.warn(
-          '[SodVerifierService] verifySod - No SID match for document signer, but only one certificate present. Using as self-signed (ICAO fallback).',
+          '[SodVerifierService] verifySod - No SID match for document signer, but only one certificate present. Using as self-signed (ICAO fallback).'
         )
       }
       if (!docSignerCert) {
         this.logger.error(
           '[SodVerifierService] verifySod - No matching document signer certificate found in SOD. Certificates:',
-          sodSignerCerts,
+          sodSignerCerts
         )
         throw new Error('No matching document signer certificate found in SOD')
       }
@@ -178,17 +175,17 @@ export class SodVerifierService {
         if (chain && chain.length > 0) {
           authenticity = true
           this.logger.info(
-            `[SodVerifierService] verifySod - Authenticity verified: Document signer is trusted by a CSCA (chain length: ${chain.length})`,
+            `[SodVerifierService] verifySod - Authenticity verified: Document signer is trusted by a CSCA (chain length: ${chain.length})`
           )
         } else {
           this.logger.warn(
-            '[SodVerifierService] verifySod - Authenticity verification FAILED: No valid trust chain found for DSC.',
+            '[SodVerifierService] verifySod - Authenticity verification FAILED: No valid trust chain found for DSC.'
           )
         }
       } catch (error) {
         this.logger.error(
           '[SodVerifierService] verifySod - Authenticity chain validation error: ' +
-            (error instanceof Error ? error.message : String(error)),
+            (error instanceof Error ? error.message : String(error))
         )
       }
 
@@ -196,7 +193,7 @@ export class SodVerifierService {
       return { authenticity, integrity }
     } catch (error) {
       const err = error instanceof Error ? error : new Error(String(error))
-      this.logger.error('[SodVerifierService] verifySod - Verification failed: ' + err.message)
+      this.logger.error(`[SodVerifierService] verifySod - Verification failed: ${err.message}`)
       throw err
     }
   }
@@ -255,9 +252,9 @@ export class SodVerifierService {
     } catch (error) {
       this.logger.error(
         '[SodVerifierService] extractDerFromTlv - Failed to extract DER from TLV: ' +
-          (error instanceof Error ? error.message : String(error)),
+          (error instanceof Error ? error.message : String(error))
       )
-      throw new Error('Failed to extract DER from TLV: ' + (error instanceof Error ? error.message : String(error)))
+      throw new Error(`Failed to extract DER from TLV: ${error instanceof Error ? error.message : String(error)}`)
     }
   }
 }

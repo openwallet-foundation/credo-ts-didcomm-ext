@@ -1,7 +1,6 @@
-import type { DidCommMessageReceiptOptions, DidCommRequestedReceiptOptions } from './messages'
-
 import { AgentContext, CredoError, injectable } from '@credo-ts/core'
 import { DidCommConnectionService, DidCommMessageSender, DidCommOutboundMessageContext } from '@credo-ts/didcomm'
+import type { DidCommMessageReceiptOptions, DidCommRequestedReceiptOptions } from './messages'
 
 import { DidCommMessageReceipt, DidCommRequestedReceipt } from './messages'
 import { DidCommReceiptsService } from './services'
@@ -17,7 +16,7 @@ export class DidCommReceiptsApi {
     agentContext: AgentContext,
     messageSender: DidCommMessageSender,
     receiptsService: DidCommReceiptsService,
-    connectionService: DidCommConnectionService,
+    connectionService: DidCommConnectionService
   ) {
     this.agentContext = agentContext
     this.messageSender = messageSender
@@ -37,7 +36,7 @@ export class DidCommReceiptsApi {
     })
 
     await this.messageSender.sendMessage(
-      new DidCommOutboundMessageContext(message, { agentContext: this.agentContext, connection }),
+      new DidCommOutboundMessageContext(message, { agentContext: this.agentContext, connection })
     )
 
     return { messageId: message.id }
@@ -55,7 +54,7 @@ export class DidCommReceiptsApi {
     })
 
     await this.messageSender.sendMessage(
-      new DidCommOutboundMessageContext(message, { agentContext: this.agentContext, connection }),
+      new DidCommOutboundMessageContext(message, { agentContext: this.agentContext, connection })
     )
 
     return { messageId: message.id }

@@ -1,6 +1,5 @@
-import type { ShortenUrlRole, ShortenUrlState } from '../models'
-
 import { BaseRecord, utils } from '@credo-ts/core'
+import type { ShortenUrlRole, ShortenUrlState } from '../models'
 
 export interface DidCommShortenUrlRecordProps {
   id?: string

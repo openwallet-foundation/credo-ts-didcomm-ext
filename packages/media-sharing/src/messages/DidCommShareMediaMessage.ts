@@ -1,8 +1,7 @@
-import type { CipheringInfo, SharedMediaItem } from '../repository'
-
 import { DidCommAttachment, DidCommMessage, IsValidMessageType, parseMessageType } from '@credo-ts/didcomm'
 import { Expose, Transform, Type } from 'class-transformer'
 import { IsDate, IsOptional, IsString } from 'class-validator'
+import type { CipheringInfo, SharedMediaItem } from '../repository'
 
 import { toDate } from '../utils/utils'
 
@@ -79,7 +78,7 @@ export class DidCommShareMediaMessage extends DidCommMessage {
             filename: item.fileName,
             description: item.description,
             mimeType: item.mimeType,
-          }),
+          })
         )
         this.items.push({
           id: item.id,

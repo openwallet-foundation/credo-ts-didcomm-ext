@@ -1,17 +1,16 @@
 import type {
-  BaseRecord,
-  RecordSavedEvent,
-  RecordDeletedEvent,
-  RecordUpdatedEvent,
   Agent,
   BaseEvent,
+  BaseRecord,
+  RecordDeletedEvent,
+  RecordSavedEvent,
+  RecordUpdatedEvent,
 } from '@credo-ts/core'
-import type { Constructor } from '@credo-ts/core/'
-
 import { RepositoryEventTypes } from '@credo-ts/core'
-import { map, filter, pipe } from 'rxjs'
+import type { Constructor } from '@credo-ts/core/'
+import { filter, map, pipe } from 'rxjs'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// biome-ignore lint/suspicious/noExplicitAny: matches records with any tag types
 type BaseRecordAny = BaseRecord<any, any, any>
 type RecordClass<R extends BaseRecordAny> = Constructor<R> & { type: string }
 export interface RecordsState<R extends BaseRecordAny> {
@@ -51,7 +50,7 @@ export const removeRecord = <R extends BaseRecordAny>(record: R, state: RecordsS
 const filterByType = <R extends BaseRecordAny>(recordClass: RecordClass<R>) => {
   return pipe(
     map((event: BaseEvent) => (event.payload as Record<string, R>).record),
-    filter((record: R) => record.type === recordClass.type),
+    filter((record: R) => record.type === recordClass.type)
   )
 }
 
@@ -64,7 +63,7 @@ export const recordsAddedByType = <R extends BaseRecordAny>(agent: Agent | undef
 
 export const recordsUpdatedByType = <R extends BaseRecordAny>(
   agent: Agent | undefined,
-  recordClass: RecordClass<R>,
+  recordClass: RecordClass<R>
 ) => {
   if (!agent) {
     throw new Error('Agent is required to subscribe to events')
@@ -76,7 +75,7 @@ export const recordsUpdatedByType = <R extends BaseRecordAny>(
 
 export const recordsRemovedByType = <R extends BaseRecordAny>(
   agent: Agent | undefined,
-  recordClass: RecordClass<R>,
+  recordClass: RecordClass<R>
 ) => {
   if (!agent) {
     throw new Error('Agent is required to subscribe to events')

@@ -1,11 +1,10 @@
-import type { DidCommMrtdService } from '../services/DidCommMrtdService'
 import type {
   DidCommMessageHandler,
   DidCommMessageHandlerInboundMessage,
   DidCommOutboundMessageContext,
 } from '@credo-ts/didcomm'
-
 import { MrtdProblemReportMessage } from '../messages'
+import type { DidCommMrtdService } from '../services/DidCommMrtdService'
 
 export class MrtdProblemReportHandler implements DidCommMessageHandler {
   private mrtdService: DidCommMrtdService
@@ -17,7 +16,7 @@ export class MrtdProblemReportHandler implements DidCommMessageHandler {
   }
 
   public async handle(
-    messageContext: DidCommMessageHandlerInboundMessage<MrtdProblemReportHandler>,
+    messageContext: DidCommMessageHandlerInboundMessage<MrtdProblemReportHandler>
   ): Promise<DidCommOutboundMessageContext | undefined> {
     await this.mrtdService.processProblemReport(messageContext)
     return

@@ -1,4 +1,4 @@
-import { ConsoleLogger, LogLevel, type Logger } from '@credo-ts/core'
+import { ConsoleLogger, type Logger, LogLevel } from '@credo-ts/core'
 import { X509Certificate } from '@peculiar/x509'
 import { promises as fs } from 'fs'
 import path from 'path'
@@ -108,7 +108,7 @@ describe('SodVerifierService Testing', () => {
     expect(result.integrity).toBe(true)
 
     if (!result.authenticity || !result.integrity) {
-      // eslint-disable-next-line no-console
+      // biome-ignore lint/suspicious/noConsole: shows the verification details when the check fails
       console.log('Verification details:', result.details ?? '(no extra details)')
     }
   })

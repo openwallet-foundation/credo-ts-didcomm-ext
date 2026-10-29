@@ -1,9 +1,9 @@
 import type { FileSystem, Logger } from '@credo-ts/core'
 
-import { AgentContext, inject, injectable, InjectionSymbols } from '@credo-ts/core'
+import { AgentContext, InjectionSymbols, inject, injectable } from '@credo-ts/core'
 import { X509Certificate } from '@peculiar/x509'
-import { fromBER, Sequence, Set } from 'asn1js'
-import { ContentInfo, SignedData, Certificate } from 'pkijs'
+import { Set as Asn1Set, fromBER, Sequence } from 'asn1js'
+import { Certificate, ContentInfo, SignedData } from 'pkijs'
 
 import { DidCommMrtdModuleConfig } from '../config/DidCommMrtdModuleConfig'
 
@@ -46,7 +46,7 @@ export class CscaMasterListService {
     if (!sourceLocation) {
       this.isInitialized = true
       this.logger?.warn(
-        '[CscaMasterListService] initialize - No "masterListCscaLocation" configured. Authenticity verification will be disabled.',
+        '[CscaMasterListService] initialize - No "masterListCscaLocation" configured. Authenticity verification will be disabled.'
       )
       return
     }
@@ -63,7 +63,7 @@ export class CscaMasterListService {
       if (this.sourceLocation.startsWith('http://') || this.sourceLocation.startsWith('https://')) {
         this.cacheFilePath = `${this.fileSystem.cachePath}/icao-master-list.ldif`
         this.logger.debug(
-          `[CscaMasterListService] initialize - Remote Master List URL detected. Cache path set to: ${this.cacheFilePath}`,
+          `[CscaMasterListService] initialize - Remote Master List URL detected. Cache path set to: ${this.cacheFilePath}`
         )
         const metadataPath = `${this.cacheFilePath}.metadata.json` // For storing download timestamp
         const cacheExists = await this.fileSystem.exists(this.cacheFilePath)
@@ -73,13 +73,13 @@ export class CscaMasterListService {
           await this.downloadAndCacheMasterList(metadataPath, expectedFileName)
         } else {
           this.logger.info(
-            `[CscaMasterListService] initialize - cache found at ${this.cacheFilePath}, using cached file.`,
+            `[CscaMasterListService] initialize - cache found at ${this.cacheFilePath}, using cached file.`
           )
         }
         ldifContent = await this.fileSystem.read(this.cacheFilePath)
       } else {
         this.logger.info(
-          `[CscaMasterListService] initialize - Reading Master List from local file: ${this.sourceLocation}`,
+          `[CscaMasterListService] initialize - Reading Master List from local file: ${this.sourceLocation}`
         )
         ldifContent = await this.fileSystem.read(this.sourceLocation)
       }
@@ -89,12 +89,12 @@ export class CscaMasterListService {
 
       this.isInitialized = true
       this.logger.info(
-        `[CscaMasterListService] initialize - Initialization complete. Loaded ${this.trustStore.size} CSCA certificates into the trust store.`,
+        `[CscaMasterListService] initialize - Initialization complete. Loaded ${this.trustStore.size} CSCA certificates into the trust store.`
       )
     } catch (error) {
       const errorMsg = error instanceof Error ? error.message : String(error)
       this.logger.error(
-        `[CscaMasterListService] initialize - Error initializing from "${this.sourceLocation}": ${errorMsg}`,
+        `[CscaMasterListService] initialize - Error initializing from "${this.sourceLocation}": ${errorMsg}`
       )
       throw new Error('Could not initialize CscaMasterListService. eMRTD verification will not be available.')
     }
@@ -122,8 +122,7 @@ export class CscaMasterListService {
     // Regex to find all pkdMasterListContent:: <base64> lines and their wrapped lines
     const regex = /^pkdMasterListContent:: ([A-Za-z0-9+/= \r\n]+)(?:\n(?!\w+::).+)*$/gm
 
-    let match: RegExpExecArray | null
-    while ((match = regex.exec(ldifContent)) !== null) {
+    for (const match of ldifContent.matchAll(regex)) {
       const b64 = match[1].replace(/\r/g, '').replace(/\n/g, '').replace(/ /g, '')
       try {
         const buf = Buffer.from(b64, 'base64')
@@ -176,7 +175,7 @@ export class CscaMasterListService {
         }
         // The second element is the SET OF Certificates
         const certSet = seq.valueBlock.value[1]
-        if (!(certSet instanceof Set)) throw new Error('Expected SET OF Certificates')
+        if (!(certSet instanceof Asn1Set)) throw new Error('Expected SET OF Certificates')
         if (!Array.isArray(certSet.valueBlock.value)) throw new Error('SET block missing value array')
 
         let loadedCount = 0
@@ -200,7 +199,7 @@ export class CscaMasterListService {
           extractedCSCA += loadedCount
         }
         this.logger.info(
-          `[CscaMasterListService] extractCSCACerts - Extracted ${loadedCount} CSCA certificates from one Master List entry.`,
+          `[CscaMasterListService] extractCSCACerts - Extracted ${loadedCount} CSCA certificates from one Master List entry.`
         )
       } catch {
         // Most entries are invalid, just skip and continue
@@ -211,7 +210,7 @@ export class CscaMasterListService {
     this.logger.info(`[CscaMasterListService] extractCSCACerts - Processed ${validMasterLists} Master List entries.`)
     if (validMasterLists === 0) throw new Error('No valid Master List found in LDIF file')
     this.logger.info(
-      `[CscaMasterListService] extractCSCACerts - Extracted ${extractedCSCA} CSCA certificates from ${validMasterLists} valid Master List entries.`,
+      `[CscaMasterListService] extractCSCACerts - Extracted ${extractedCSCA} CSCA certificates from ${validMasterLists} valid Master List entries.`
     )
   }
 
@@ -223,7 +222,7 @@ export class CscaMasterListService {
     // If no FileSystem is available, we cannot manage a cache, so always reuse existing file if present.
     if (!this.fileSystem) {
       this.logger.debug(
-        '[CscaMasterListService] initialize - FileSystem not available. Reusing cached Master List if present.',
+        '[CscaMasterListService] initialize - FileSystem not available. Reusing cached Master List if present.'
       )
       return true
     }
@@ -231,7 +230,7 @@ export class CscaMasterListService {
       if (!(await this.fileSystem.exists(metadataPath))) {
         // No metadata means we cannot determine age; fetch a fresh copy.
         this.logger.info(
-          '[CscaMasterListService] initialize - No metadata found for cached Master List. Refreshing remote copy.',
+          '[CscaMasterListService] initialize - No metadata found for cached Master List. Refreshing remote copy.'
         )
         return true
       }
@@ -240,7 +239,7 @@ export class CscaMasterListService {
       const metadata = this.parseMetadata(metadataRaw)
       if (!metadata) {
         this.logger.info(
-          '[CscaMasterListService] initialize - Cached Master List metadata could not be parsed. Refreshing remote copy.',
+          '[CscaMasterListService] initialize - Cached Master List metadata could not be parsed. Refreshing remote copy.'
         )
         return true
       }
@@ -250,14 +249,14 @@ export class CscaMasterListService {
       if (expectedFileName) {
         if (!downloadedFileName) {
           this.logger.info(
-            '[CscaMasterListService] initialize - Cached Master List metadata missing file name. Refreshing remote copy.',
+            '[CscaMasterListService] initialize - Cached Master List metadata missing file name. Refreshing remote copy.'
           )
           return true
         }
 
         if (expectedFileName !== downloadedFileName) {
           this.logger.info(
-            `[CscaMasterListService] initialize - Cached Master List was downloaded as "${downloadedFileName}", but current configuration expects "${expectedFileName}". Refreshing remote copy.`,
+            `[CscaMasterListService] initialize - Cached Master List was downloaded as "${downloadedFileName}", but current configuration expects "${expectedFileName}". Refreshing remote copy.`
           )
           return true
         }
@@ -266,7 +265,7 @@ export class CscaMasterListService {
       return false
     } catch {
       this.logger.error(
-        '[CscaMasterListService] initialize - Failed to read cache metadata. Refreshing remote Master List.',
+        '[CscaMasterListService] initialize - Failed to read cache metadata. Refreshing remote Master List.'
       )
       return true
     }
@@ -280,14 +279,14 @@ export class CscaMasterListService {
    */
   private async downloadAndCacheMasterList(
     metadataPath: string,
-    downloadedFileName: string | undefined,
+    downloadedFileName: string | undefined
   ): Promise<void> {
     if (!this.fileSystem || !this.cacheFilePath || !this.sourceLocation) {
       throw new Error('CscaMasterListService is not properly configured to download the Master List.')
     }
 
     this.logger.info(
-      `[CscaMasterListService] initialize - downloading and caching via FileSystem: ${this.sourceLocation}`,
+      `[CscaMasterListService] initialize - downloading and caching via FileSystem: ${this.sourceLocation}`
     )
     await this.fileSystem.downloadToFile(this.sourceLocation, this.cacheFilePath, {})
     // Write metadata with download timestamp

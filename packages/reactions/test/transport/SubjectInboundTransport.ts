@@ -1,14 +1,13 @@
 import type { AgentContext } from '@credo-ts/core'
+import { CredoError, utils } from '@credo-ts/core'
 import type {
   DidCommEncryptedMessage,
   DidCommInboundTransport,
-  DidCommTransportSession,
   DidCommMessage,
+  DidCommTransportSession,
 } from '@credo-ts/didcomm'
-import type { Subscription } from 'rxjs'
-
-import { CredoError, utils } from '@credo-ts/core'
 import { DidCommMessageReceiver, DidCommTransportService } from '@credo-ts/didcomm'
+import type { Subscription } from 'rxjs'
 import { Subject } from 'rxjs'
 
 export type SubjectMessage = { message: DidCommEncryptedMessage; replySubject?: Subject<SubjectMessage> }

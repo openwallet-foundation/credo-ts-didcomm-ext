@@ -1,18 +1,16 @@
+import { AgentContext, EventEmitter, injectable } from '@credo-ts/core'
+import { DidCommConnectionRecord, DidCommConnectionService, DidCommInboundMessageContext } from '@credo-ts/didcomm'
+import { DidCommUserProfileModuleConfig } from '../DidCommUserProfileModuleConfig'
 import type { DidCommGetProfileMessageOptions, DidCommProfileMessageOptions } from '../messages'
+import { DidCommProfileMessage, DidCommRequestProfileMessage } from '../messages'
 import type { DidCommUserProfileData } from '../model'
+import { getConnectionProfile, setConnectionProfile } from '../model'
+import { DidCommUserProfileRecord, DidCommUserProfileRepository } from '../repository'
 import type {
   DidCommConnectionProfileUpdatedEvent,
   DidCommUserProfileRequestedEvent,
   DidCommUserProfileUpdatedEvent,
 } from './DidCommUserProfileEvents'
-
-import { injectable, AgentContext, EventEmitter } from '@credo-ts/core'
-import { DidCommConnectionService, DidCommInboundMessageContext, DidCommConnectionRecord } from '@credo-ts/didcomm'
-
-import { DidCommUserProfileModuleConfig } from '../DidCommUserProfileModuleConfig'
-import { DidCommRequestProfileMessage, DidCommProfileMessage } from '../messages'
-import { getConnectionProfile, setConnectionProfile } from '../model'
-import { DidCommUserProfileRepository, DidCommUserProfileRecord } from '../repository'
 
 import { DidCommProfileEventTypes } from './DidCommUserProfileEvents'
 
@@ -25,7 +23,7 @@ export class DidCommUserProfileService {
   public constructor(
     userProfileRepository: DidCommUserProfileRepository,
     connectionService: DidCommConnectionService,
-    eventEmitter: EventEmitter,
+    eventEmitter: EventEmitter
   ) {
     this.userProfileRepository = userProfileRepository
     this.connectionService = connectionService
@@ -70,7 +68,7 @@ export class DidCommUserProfileService {
   public async getUserProfile(agentContext: AgentContext): Promise<DidCommUserProfileRecord> {
     let userProfileRecord = await this.userProfileRepository.findById(
       agentContext,
-      this.userProfileRepository.DEFAULT_USER_PROFILE_RECORD,
+      this.userProfileRepository.DEFAULT_USER_PROFILE_RECORD
     )
 
     // If we don't have an user profile record yet, create it
@@ -179,7 +177,7 @@ export class DidCommUserProfileService {
       return await this.createProfileMessageAsReply(
         messageContext.agentContext,
         connection,
-        messageContext.message.threadId,
+        messageContext.message.threadId
       )
     }
   }
@@ -187,7 +185,7 @@ export class DidCommUserProfileService {
   private async createProfileMessageAsReply(
     agentContext: AgentContext,
     connection: DidCommConnectionRecord,
-    threadId: string,
+    threadId: string
   ) {
     const userProfile = await this.getUserProfile(agentContext)
     const profile: DidCommUserProfileData = {

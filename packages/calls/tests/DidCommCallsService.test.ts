@@ -1,5 +1,5 @@
 import { JsonTransformer } from '@credo-ts/core'
-import { describe, test, expect, beforeAll, afterAll } from 'vitest'
+import { afterAll, beforeAll, describe, expect, test } from 'vitest'
 
 import { DidCommCallsService } from '../src/DidCommCallsService'
 
@@ -38,7 +38,7 @@ describe('Didcomm Calls', () => {
           offer_start_time: '2024-12-02T01:26:02.000Z',
           offer_expiration_time: '2024-12-02T01:26:03.070Z',
           parameters: { param: 'value' },
-        }),
+        })
       )
     })
   })
@@ -57,7 +57,7 @@ describe('Didcomm Calls', () => {
           '@type': 'https://didcomm.org/calls/1.0/call-accept',
           parameters: { param: 'value' },
           '~thread': expect.objectContaining({ thid: '5678-5678-5678-5678' }),
-        }),
+        })
       )
     })
   })
@@ -75,7 +75,7 @@ describe('Didcomm Calls', () => {
           '@id': expect.any(String),
           '@type': 'https://didcomm.org/calls/1.0/call-reject',
           '~thread': expect.objectContaining({ thid: '5678-5678-5678-5678' }),
-        }),
+        })
       )
     })
   })

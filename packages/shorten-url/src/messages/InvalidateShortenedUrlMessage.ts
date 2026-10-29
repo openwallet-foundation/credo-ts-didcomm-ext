@@ -20,7 +20,7 @@ export class InvalidateShortenedUrlMessage extends DidCommMessage {
   @Expose({ name: 'shortened_url' })
   public shortenedUrl!: string
   public static readonly type: ReturnType<typeof parseMessageType> = parseMessageType(
-    'https://didcomm.org/shorten-url/1.0/invalidate-shortened-url',
+    'https://didcomm.org/shorten-url/1.0/invalidate-shortened-url'
   )
 
   @IsValidMessageType(InvalidateShortenedUrlMessage.type)

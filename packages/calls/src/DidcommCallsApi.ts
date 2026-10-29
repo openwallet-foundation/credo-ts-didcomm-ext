@@ -1,9 +1,7 @@
-import type { DidCommCallType } from './messages/CallOfferMessage'
-
 import { AgentContext, injectable } from '@credo-ts/core'
 import { DidCommConnectionService, DidCommMessageSender, DidCommOutboundMessageContext } from '@credo-ts/didcomm'
-
 import { DidCommCallsService } from './DidCommCallsService'
+import type { DidCommCallType } from './messages/CallOfferMessage'
 
 @injectable()
 export class DidCommCallsApi {
@@ -11,7 +9,7 @@ export class DidCommCallsApi {
     private readonly messageSender: DidCommMessageSender,
     private readonly didcommCallsService: DidCommCallsService,
     private readonly connectionService: DidCommConnectionService,
-    private readonly agentContext: AgentContext,
+    private readonly agentContext: AgentContext
   ) {}
 
   public async offer(options: {

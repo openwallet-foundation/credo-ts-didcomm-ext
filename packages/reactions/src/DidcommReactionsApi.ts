@@ -15,7 +15,7 @@ export class DidCommReactionsApi {
     messageSender: DidCommMessageSender,
     reactionsService: DidCommReactionsService,
     connectionService: DidCommConnectionService,
-    agentContext: AgentContext,
+    agentContext: AgentContext
   ) {
     this.messageSender = messageSender
     this.reactionsService = reactionsService
@@ -35,7 +35,7 @@ export class DidCommReactionsApi {
     })
 
     await this.messageSender.sendMessage(
-      new DidCommOutboundMessageContext(message, { agentContext: this.agentContext, connection }),
+      new DidCommOutboundMessageContext(message, { agentContext: this.agentContext, connection })
     )
 
     return { messageId: message.id }

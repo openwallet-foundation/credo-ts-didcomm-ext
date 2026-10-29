@@ -1,5 +1,5 @@
-export { DidCommCallsApi } from './DidcommCallsApi'
 export { DidCommCallsModule } from './DidCommCallsModule'
 export { DidCommCallsService } from './DidCommCallsService'
-export * from './models'
+export { DidCommCallsApi } from './DidcommCallsApi'
 export * from './messages'
+export * from './models'

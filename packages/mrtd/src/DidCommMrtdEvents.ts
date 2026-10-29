@@ -1,6 +1,6 @@
-import type { MrzData, EMrtdData } from './models'
 import type { BaseEvent } from '@credo-ts/core'
-import type { DidCommConnectionRecord, DescriptionOptions } from '@credo-ts/didcomm'
+import type { DescriptionOptions, DidCommConnectionRecord } from '@credo-ts/didcomm'
+import type { EMrtdData, MrzData } from './models'
 
 export enum MrtdEventTypes {
   EMrtdDataReceived = 'EMrtdDataReceived',

@@ -1,14 +1,13 @@
 import './setup'
 
-import type { DidCommMessageReactionsReceivedEvent } from '../src'
-import type { DidCommConnectionRecord, DidCommEncryptedMessage } from '@credo-ts/didcomm'
-
 import { AskarModule } from '@credo-ts/askar'
 import { Agent, ConsoleLogger, LogLevel } from '@credo-ts/core'
+import type { DidCommConnectionRecord, DidCommEncryptedMessage } from '@credo-ts/didcomm'
 import { DidCommDidExchangeState, DidCommModule } from '@credo-ts/didcomm'
 import { agentDependencies } from '@credo-ts/node'
 import { askarNodeJS } from '@openwallet-foundation/askar-nodejs'
 import { filter, firstValueFrom, map, Subject, timeout } from 'rxjs'
+import type { DidCommMessageReactionsReceivedEvent } from '../src'
 
 import { DidCommReactionsEventTypes } from '../src'
 import { DidCommReactionsModule } from '../src/DidCommReactionsModule'
@@ -82,7 +81,7 @@ describe('reactions test', () => {
 
     const { connectionRecord } = await bobAgent.didcomm.oob.receiveInvitationFromUrl(
       outOfBandRecord.outOfBandInvitation.toUrl({ domain: 'https://example.com/ssi' }),
-      { autoAcceptConnection: true, label: 'bob' },
+      { autoAcceptConnection: true, label: 'bob' }
     )
 
     bobConnectionRecord = await bobAgent.didcomm.connections.returnWhenIsConnected(connectionRecord!.id)
@@ -112,11 +111,11 @@ describe('reactions test', () => {
         .observable<DidCommMessageReactionsReceivedEvent>(DidCommReactionsEventTypes.DidCommMessageReactionsReceived)
         .pipe(
           filter(
-            (event: DidCommMessageReactionsReceivedEvent) => event.payload.connectionId === aliceConnectionRecord.id,
+            (event: DidCommMessageReactionsReceivedEvent) => event.payload.connectionId === aliceConnectionRecord.id
           ),
           map((event: DidCommMessageReactionsReceivedEvent) => event.payload.reactions),
-          timeout(5000),
-        ),
+          timeout(5000)
+        )
     )
 
     await bobAgent.modules.reactions.send({
@@ -132,7 +131,7 @@ describe('reactions test', () => {
         messageId: 'messageId',
         action: DidCommMessageReactionAction.React,
         emoji: '😀',
-      }),
+      })
     )
   })
 })

@@ -1,7 +1,7 @@
 import type { AgentContext, DependencyManager } from '@credo-ts/core'
 
 import { DidCommFeatureRegistry, DidCommMessageHandlerRegistry } from '@credo-ts/didcomm'
-import { vi, describe } from 'vitest'
+import { describe, vi } from 'vitest'
 
 import { DidCommShortenUrlApi } from '../src/DidCommShortenUrlApi'
 import { DidCommShortenUrlModule } from '../src/DidCommShortenUrlModule'
@@ -31,10 +31,10 @@ describe('DidCommShortenUrlModuleConfig', () => {
 
   it('throws when maximumRequestedValiditySeconds is not a positive integer', () => {
     expect(() => new DidCommShortenUrlModuleConfig({ maximumRequestedValiditySeconds: -1 })).toThrow(
-      'maximumRequestedValiditySeconds must be zero or a positive integer',
+      'maximumRequestedValiditySeconds must be zero or a positive integer'
     )
     expect(() => new DidCommShortenUrlModuleConfig({ maximumRequestedValiditySeconds: 12.5 })).toThrow(
-      'maximumRequestedValiditySeconds must be an integer',
+      'maximumRequestedValiditySeconds must be an integer'
     )
   })
 
@@ -102,7 +102,7 @@ describe('DidCommShortenUrlModule', () => {
       expect.objectContaining({
         id: 'https://didcomm.org/shorten-url/1.0',
         roles: [ShortenUrlRole.UrlShortener, ShortenUrlRole.LongUrlProvider],
-      }),
+      })
     )
     expect(messageHandlerRegistryMock.registerMessageHandlers).toHaveBeenCalled()
   })

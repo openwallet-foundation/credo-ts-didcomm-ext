@@ -1,17 +1,15 @@
 import './setup'
 
-import type { MessageReceiptsReceivedEvent, RequestReceiptsReceivedEvent } from '../src/services'
-import type { DidCommConnectionRecord, DidCommEncryptedMessage } from '@credo-ts/didcomm'
-
 import { AskarModule } from '@credo-ts/askar'
 import { Agent, ConsoleLogger, LogLevel } from '@credo-ts/core'
+import type { DidCommConnectionRecord, DidCommEncryptedMessage } from '@credo-ts/didcomm'
 import { DidCommDidExchangeState, DidCommModule } from '@credo-ts/didcomm'
 import { agentDependencies } from '@credo-ts/node'
 import { askarNodeJS } from '@openwallet-foundation/askar-nodejs'
 import { filter, firstValueFrom, map, Subject, timeout } from 'rxjs'
-
 import { DidCommReceiptsModule } from '../src/DidCommReceiptsModule'
 import { MessageState } from '../src/messages'
+import type { MessageReceiptsReceivedEvent, RequestReceiptsReceivedEvent } from '../src/services'
 import { ReceiptsEventTypes } from '../src/services'
 
 import { SubjectInboundTransport } from './transport/SubjectInboundTransport'
@@ -84,7 +82,7 @@ describe('receipts test', () => {
 
     const { connectionRecord } = await bobAgent.didcomm.oob.receiveInvitationFromUrl(
       outOfBandRecord.outOfBandInvitation.toUrl({ domain: 'https://example.com/ssi' }),
-      { autoAcceptConnection: true, label: 'bob' },
+      { autoAcceptConnection: true, label: 'bob' }
     )
 
     bobConnectionRecord = await bobAgent.didcomm.connections.returnWhenIsConnected(connectionRecord!.id)
@@ -113,8 +111,8 @@ describe('receipts test', () => {
       aliceAgent.events.observable<MessageReceiptsReceivedEvent>(ReceiptsEventTypes.MessageReceiptsReceived).pipe(
         filter((event: MessageReceiptsReceivedEvent) => event.payload.connectionId === aliceConnectionRecord.id),
         map((event: MessageReceiptsReceivedEvent) => event.payload.receipts),
-        timeout(5000),
-      ),
+        timeout(5000)
+      )
     )
 
     await bobAgent.modules.receipts.send({
@@ -129,7 +127,7 @@ describe('receipts test', () => {
       expect.objectContaining({
         messageId: 'messageId',
         state: MessageState.Received,
-      }),
+      })
     )
   })
 
@@ -138,8 +136,8 @@ describe('receipts test', () => {
       aliceAgent.events.observable<RequestReceiptsReceivedEvent>(ReceiptsEventTypes.RequestReceiptsReceived).pipe(
         filter((event: RequestReceiptsReceivedEvent) => event.payload.connectionId === aliceConnectionRecord.id),
         map((event: RequestReceiptsReceivedEvent) => event.payload.requestedReceipts),
-        timeout(5000),
-      ),
+        timeout(5000)
+      )
     )
 
     await bobAgent.modules.receipts.request({
@@ -154,7 +152,7 @@ describe('receipts test', () => {
       expect.objectContaining({
         messageType: 'messageType',
         states: [MessageState.Viewed, MessageState.Received],
-      }),
+      })
     )
   })
 })

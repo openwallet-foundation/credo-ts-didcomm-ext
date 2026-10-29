@@ -1,7 +1,6 @@
-import type { DidCommUserProfileData } from '../model'
 import type { ParsedMessageType } from '@credo-ts/didcomm'
-
 import { DidCommMessage, IsValidMessageType, parseMessageType } from '@credo-ts/didcomm'
+import type { DidCommUserProfileData } from '../model'
 
 export type DidCommUserProfileKey = string | keyof DidCommUserProfileData
 
@@ -25,7 +24,7 @@ export class DidCommRequestProfileMessage extends DidCommMessage {
   }
 
   public static readonly type: ParsedMessageType = parseMessageType(
-    'https://didcomm.org/user-profile/1.0/request-profile',
+    'https://didcomm.org/user-profile/1.0/request-profile'
   )
   @IsValidMessageType(DidCommRequestProfileMessage.type)
   public readonly type: string = DidCommRequestProfileMessage.type.messageTypeUri

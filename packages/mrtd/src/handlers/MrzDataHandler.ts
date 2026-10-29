@@ -1,11 +1,10 @@
-import type { DidCommMrtdService } from '../services/DidCommMrtdService'
 import type {
   DidCommMessageHandler,
   DidCommMessageHandlerInboundMessage,
   DidCommOutboundMessageContext,
 } from '@credo-ts/didcomm'
-
 import { MrzDataMessage } from '../messages'
+import type { DidCommMrtdService } from '../services/DidCommMrtdService'
 
 /**
  * Handler for incoming mrz messages
@@ -20,7 +19,7 @@ export class MrzDataHandler implements DidCommMessageHandler {
   }
 
   public async handle(
-    inboundMessage: DidCommMessageHandlerInboundMessage<MrzDataHandler>,
+    inboundMessage: DidCommMessageHandlerInboundMessage<MrzDataHandler>
   ): Promise<DidCommOutboundMessageContext | undefined> {
     await this.mrtdService.processMrzData(inboundMessage)
     return

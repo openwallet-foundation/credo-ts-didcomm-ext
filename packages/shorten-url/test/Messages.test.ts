@@ -1,15 +1,15 @@
 import 'reflect-metadata'
-import type { DidCommMessage } from '@credo-ts/didcomm'
 
 import { JsonTransformer } from '@credo-ts/core'
-import { describe, it, expect } from 'vitest'
+import type { DidCommMessage } from '@credo-ts/didcomm'
+import { describe, expect, it } from 'vitest'
 
-import { RequestShortenedUrlMessage, ShortenedUrlMessage, InvalidateShortenedUrlMessage } from '../src/messages'
+import { InvalidateShortenedUrlMessage, RequestShortenedUrlMessage, ShortenedUrlMessage } from '../src/messages'
 
 // Type helper to project messages to DIDComm V2 format
 const toDidCommV2 = (message: DidCommMessage) => {
   const json = JsonTransformer.toJSON(message) as Record<string, unknown>
-  const { ['@type']: type, ['@id']: id, ['~thread']: thread, ...body } = json
+  const { '@type': type, '@id': id, '~thread': thread, ...body } = json
 
   return {
     type,
@@ -48,8 +48,8 @@ describe('DIDComm Shorten URL Message models', () => {
         requestedValiditySeconds: 0,
       })
       const json = JsonTransformer.toJSON(msg) as Record<string, unknown>
-      expect(json['requested_validity_seconds']).toBe(0)
-      expect(json['short_url_slug']).toBeUndefined()
+      expect(json.requested_validity_seconds).toBe(0)
+      expect(json.short_url_slug).toBeUndefined()
     })
 
     it('should project to DIDComm V2 structure', () => {
@@ -97,7 +97,7 @@ describe('DIDComm Shorten URL Message models', () => {
         shortenedUrl: 'https://test.io/a1b2',
       })
       const json = JsonTransformer.toJSON(msg) as Record<string, unknown>
-      expect(json['expires_time']).toBeUndefined()
+      expect(json.expires_time).toBeUndefined()
     })
 
     it('should project to DIDComm V2 structure', () => {
@@ -128,7 +128,7 @@ describe('DIDComm Shorten URL Message models', () => {
       expect(msg.type).toBe('https://didcomm.org/shorten-url/1.0/invalidate-shortened-url')
 
       const json = JsonTransformer.toJSON(msg) as Record<string, unknown>
-      expect(json['shortened_url']).toBe('https://test.io/a1b2')
+      expect(json.shortened_url).toBe('https://test.io/a1b2')
       expect(json['~thread']).toBeUndefined()
     })
 

@@ -1,5 +1,5 @@
-import type { DidCommMessageReaction } from './messages'
 import type { BaseEvent } from '@credo-ts/core'
+import type { DidCommMessageReaction } from './messages'
 
 export enum DidCommReactionsEventTypes {
   DidCommMessageReactionsReceived = 'DidCommMessageReactionsReceived',

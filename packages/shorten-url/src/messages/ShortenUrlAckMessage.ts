@@ -1,4 +1,4 @@
-import { DidCommAckMessage, AckStatus, IsValidMessageType, parseMessageType } from '@credo-ts/didcomm'
+import { AckStatus, DidCommAckMessage, IsValidMessageType, parseMessageType } from '@credo-ts/didcomm'
 
 export class ShortenUrlAckMessage extends DidCommAckMessage {
   public constructor(options: { status: AckStatus; threadId: string }) {
@@ -10,6 +10,6 @@ export class ShortenUrlAckMessage extends DidCommAckMessage {
   public readonly type: string
 
   public static readonly type: ReturnType<typeof parseMessageType> = parseMessageType(
-    'https://didcomm.org/shorten-url/1.0/ack',
+    'https://didcomm.org/shorten-url/1.0/ack'
   )
 }

@@ -1,11 +1,10 @@
-import type { DidCommReceiptsService } from '../services'
 import type {
   DidCommMessageHandler,
   DidCommMessageHandlerInboundMessage,
   DidCommOutboundMessageContext,
 } from '@credo-ts/didcomm'
-
 import { DidCommMessageReceiptsMessage } from '../messages'
+import type { DidCommReceiptsService } from '../services'
 
 export class DidCommMessageReceiptsHandler implements DidCommMessageHandler {
   public supportedMessages = [DidCommMessageReceiptsMessage]
@@ -16,7 +15,7 @@ export class DidCommMessageReceiptsHandler implements DidCommMessageHandler {
   }
 
   public async handle(
-    inboundMessage: DidCommMessageHandlerInboundMessage<DidCommMessageReceiptsHandler>,
+    inboundMessage: DidCommMessageHandlerInboundMessage<DidCommMessageReceiptsHandler>
   ): Promise<DidCommOutboundMessageContext | undefined> {
     await this.receiptsService.processReceipts(inboundMessage)
     return undefined

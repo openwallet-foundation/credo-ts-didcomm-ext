@@ -1,11 +1,10 @@
 import type { AgentContext, Logger } from '@credo-ts/core'
-import type { DidCommOutboundPackage, DidCommOutboundTransport } from '@credo-ts/didcomm'
-
 import { CredoError, InjectionSymbols, utils } from '@credo-ts/core'
+import type { DidCommOutboundPackage, DidCommOutboundTransport } from '@credo-ts/didcomm'
 import { DidCommMessageReceiver, DidCommTransportService } from '@credo-ts/didcomm'
 import { Subject, take, takeUntil } from 'rxjs'
 
-import { SubjectTransportSession, type SubjectMessage } from './SubjectInboundTransport'
+import { type SubjectMessage, SubjectTransportSession } from './SubjectInboundTransport'
 
 export class SubjectOutboundTransport implements DidCommOutboundTransport {
   private logger?: Logger

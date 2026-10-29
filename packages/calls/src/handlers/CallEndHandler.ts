@@ -17,7 +17,7 @@ export class CallEndHandler implements DidCommMessageHandler {
   /* The result can be hooked into through the generic message processed event
    */
   public async handle(
-    inboundMessage: DidCommMessageHandlerInboundMessage<CallEndHandler>,
+    inboundMessage: DidCommMessageHandlerInboundMessage<CallEndHandler>
   ): Promise<DidCommOutboundMessageContext | undefined> {
     inboundMessage.assertReadyConnection()
     return

@@ -30,7 +30,7 @@ export class ShortenedUrlMessage extends DidCommMessage {
   @Transform(({ value, type }) => {
     if (value == null) return value
     // Helper to check for valid Date
-    const isValidDate = (v: unknown): v is Date => v instanceof Date && !isNaN(v.getTime())
+    const isValidDate = (v: unknown): v is Date => v instanceof Date && !Number.isNaN(v.getTime())
 
     // Serialize Date to ISO string
     if (type === TransformationType.CLASS_TO_PLAIN) return isValidDate(value) ? value.toISOString() : value
@@ -38,7 +38,7 @@ export class ShortenedUrlMessage extends DidCommMessage {
     if (type === TransformationType.PLAIN_TO_CLASS) {
       if (isValidDate(value)) return value
       const d = new Date(value)
-      return isNaN(d.getTime()) ? value : d
+      return Number.isNaN(d.getTime()) ? value : d
     }
 
     return value
@@ -46,7 +46,7 @@ export class ShortenedUrlMessage extends DidCommMessage {
   public expiresTime?: Date
 
   public static readonly type: ReturnType<typeof parseMessageType> = parseMessageType(
-    'https://didcomm.org/shorten-url/1.0/shortened-url',
+    'https://didcomm.org/shorten-url/1.0/shortened-url'
   )
   @IsValidMessageType(ShortenedUrlMessage.type)
   public readonly type = ShortenedUrlMessage.type.messageTypeUri

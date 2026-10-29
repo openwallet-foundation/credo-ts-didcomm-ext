@@ -1,4 +1,4 @@
-import { EventEmitter, InjectionSymbols, Repository, type StorageService, inject, injectable } from '@credo-ts/core'
+import { EventEmitter, InjectionSymbols, inject, injectable, Repository, type StorageService } from '@credo-ts/core'
 
 import { DidCommShortenUrlRecord } from './DidCommShortenUrlRecord'
 
@@ -7,7 +7,7 @@ export class DidCommShortenUrlRepository extends Repository<DidCommShortenUrlRec
   public constructor(
     @inject(InjectionSymbols.StorageService)
     storageService: StorageService<DidCommShortenUrlRecord>,
-    eventEmitter: EventEmitter,
+    eventEmitter: EventEmitter
   ) {
     super(DidCommShortenUrlRecord, storageService, eventEmitter)
   }

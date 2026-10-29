@@ -2,7 +2,7 @@ import type { ParsedMessageType } from '@credo-ts/didcomm'
 
 import { DidCommMessage, parseMessageType } from '@credo-ts/didcomm'
 import { Expose, Transform, TransformationType, Type } from 'class-transformer'
-import { IsArray, IsInstance, IsString, IsDate, IsEnum, ValidateNested } from 'class-validator'
+import { IsArray, IsDate, IsEnum, IsInstance, IsString, ValidateNested } from 'class-validator'
 
 import { MessageState } from './MessageState'
 

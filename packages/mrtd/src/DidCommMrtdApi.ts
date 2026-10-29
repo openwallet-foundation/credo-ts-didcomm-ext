@@ -24,7 +24,7 @@ export class DidCommMrtdApi {
     messageSender: DidCommMessageSender,
     didcommMrtdService: DidCommMrtdService,
     connectionService: DidCommConnectionService,
-    agentContext: AgentContext,
+    agentContext: AgentContext
   ) {
     this.messageSender = messageSender
     this.didcommMrtdService = didcommMrtdService
@@ -129,7 +129,7 @@ export class DidCommMrtdApi {
     const featureRegistry = this.agentContext.dependencyManager.resolve(DidCommFeatureRegistry)
 
     // TODO: This is a hack to allow features to be overwritten. This should be fixed in Credo
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // biome-ignore lint/suspicious/noExplicitAny: DidCommFeatureRegistry does not expose its features to overwrite one
     const features = (featureRegistry as any).features as DidCommFeature[]
 
     const existingItemIndex = features.findIndex((item) => item.id === MrtdCapabilities.EMrtdReadSupport)
@@ -137,7 +137,7 @@ export class DidCommMrtdApi {
       features.splice(existingItemIndex, 1)
     }
     featureRegistry.register(
-      new Capability({ id: MrtdCapabilities.EMrtdReadSupport, value: options.eMrtdReadSupported }),
+      new Capability({ id: MrtdCapabilities.EMrtdReadSupport, value: options.eMrtdReadSupported })
     )
   }
 
@@ -166,7 +166,7 @@ export class DidCommMrtdApi {
 
     return {
       eMrtdReadSupported: disclosures.features?.some(
-        (feature) => feature.id === MrtdCapabilities.EMrtdReadSupport && (feature as Capability).value === true,
+        (feature) => feature.id === MrtdCapabilities.EMrtdReadSupport && (feature as Capability).value === true
       ),
     }
   }

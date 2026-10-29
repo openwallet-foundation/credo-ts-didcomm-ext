@@ -1,17 +1,15 @@
+import type { Query, QueryOptions } from '@credo-ts/core'
+import { AgentContext, CredoError, EventEmitter, injectable } from '@credo-ts/core'
+import type { DidCommInboundMessageContext } from '@credo-ts/didcomm'
+import { DidCommMediaSharingEventTypes, type DidCommMediaSharingStateChangedEvent } from '../DidCommMediaSharingEvents'
+import { DidCommRequestMediaMessage, DidCommShareMediaMessage } from '../messages'
+import { DidCommMediaSharingRole, DidCommMediaSharingState } from '../model'
+import { DidCommMediaSharingRecord, DidCommMediaSharingRepository, SharedMediaItem } from '../repository'
 import type {
   DidCommCreateMediaSharingRecordOptions,
   DidCommRequestMediaSharingRecordOptions,
   DidCommShareMediaSharingRecordOptions,
 } from './DidCommMediaSharingServiceOptions'
-import type { Query, QueryOptions } from '@credo-ts/core'
-import type { DidCommInboundMessageContext } from '@credo-ts/didcomm'
-
-import { AgentContext, EventEmitter, CredoError, injectable } from '@credo-ts/core'
-
-import { DidCommMediaSharingEventTypes, type DidCommMediaSharingStateChangedEvent } from '../DidCommMediaSharingEvents'
-import { DidCommRequestMediaMessage, DidCommShareMediaMessage } from '../messages'
-import { DidCommMediaSharingRole, DidCommMediaSharingState } from '../model'
-import { DidCommMediaSharingRepository, SharedMediaItem, DidCommMediaSharingRecord } from '../repository'
 
 @injectable()
 export class DidCommMediaSharingService {
@@ -210,7 +208,7 @@ export class DidCommMediaSharingService {
   public async findAllByQuery(
     agentContext: AgentContext,
     mediaQuery: Query<DidCommMediaSharingRecord>,
-    queryOptions?: QueryOptions,
+    queryOptions?: QueryOptions
   ) {
     return this.mediaSharingRepository.findByQuery(agentContext, mediaQuery, queryOptions)
   }
@@ -272,7 +270,7 @@ export class DidCommMediaSharingService {
    */
   public async findAllByConnectionId(
     agentContext: AgentContext,
-    connectionId: string,
+    connectionId: string
   ): Promise<DidCommMediaSharingRecord[]> {
     return this.mediaSharingRepository.findByQuery(agentContext, {
       connectionId,

@@ -1,9 +1,8 @@
-import type { PictureData, DidCommUserProfileData } from '../model'
 import type { ParsedMessageType } from '@credo-ts/didcomm'
-
 import { DidCommAttachment, DidCommMessage, IsValidMessageType, parseMessageType } from '@credo-ts/didcomm'
 import { Expose } from 'class-transformer'
 import { IsBoolean, IsOptional } from 'class-validator'
+import type { DidCommUserProfileData, PictureData } from '../model'
 
 export interface DidCommProfileMessageOptions {
   id?: string
@@ -48,7 +47,7 @@ export class DidCommProfileMessage extends DidCommMessage {
               base64: pictureData.base64,
               links: pictureData.links,
             },
-          }),
+          })
         )
       }
 
@@ -63,7 +62,7 @@ export class DidCommProfileMessage extends DidCommMessage {
               base64: pictureData.base64,
               links: pictureData.links,
             },
-          }),
+          })
         )
       }
 

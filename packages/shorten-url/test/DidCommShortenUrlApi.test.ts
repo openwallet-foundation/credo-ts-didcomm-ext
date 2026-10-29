@@ -1,13 +1,11 @@
-import type { DidCommShortenUrlService } from '../src/DidCommShortenUrlService'
-import type { DidCommShortenUrlRepository } from '../src/repository'
 import type { AgentContext } from '@credo-ts/core'
 import type { DidCommConnectionService, DidCommMessageSender } from '@credo-ts/didcomm'
-
-import { vi, describe } from 'vitest'
-
+import { describe, vi } from 'vitest'
 import { DidCommShortenUrlApi } from '../src/DidCommShortenUrlApi'
-import { RequestShortenedUrlMessage, ShortenedUrlMessage, InvalidateShortenedUrlMessage } from '../src/messages'
+import type { DidCommShortenUrlService } from '../src/DidCommShortenUrlService'
+import { InvalidateShortenedUrlMessage, RequestShortenedUrlMessage, ShortenedUrlMessage } from '../src/messages'
 import { ShortenUrlRole, ShortenUrlState } from '../src/models'
+import type { DidCommShortenUrlRepository } from '../src/repository'
 import { DidCommShortenUrlRecord } from '../src/repository'
 
 describe('DidCommShortenUrlApi', () => {
@@ -41,7 +39,7 @@ describe('DidCommShortenUrlApi', () => {
       shortenService as unknown as DidCommShortenUrlService,
       repositoryMock as unknown as DidCommShortenUrlRepository,
       connectionServiceMock as unknown as DidCommConnectionService,
-      agentContext,
+      agentContext
     )
 
     return {
@@ -84,7 +82,7 @@ describe('DidCommShortenUrlApi', () => {
         threadId: message.id,
         role: ShortenUrlRole.LongUrlProvider,
         state: ShortenUrlState.RequestSent,
-      }),
+      })
     )
     expect(messageSender.sendMessage).toHaveBeenCalled()
   })
@@ -120,7 +118,7 @@ describe('DidCommShortenUrlApi', () => {
         state: ShortenUrlState.ShortenedSent,
         shortenedUrl: 'https://test.io/xyz',
         expiresTime: expectedExpires,
-      }),
+      })
     )
     expect(shortenService.createShortenedUrl).toHaveBeenCalledWith({
       threadId: 'rec-1',
@@ -151,7 +149,7 @@ describe('DidCommShortenUrlApi', () => {
     repository.getById.mockResolvedValue(existingRecord)
 
     await expect(api.sendShortenedUrl({ recordId: 'rec-1', shortenedUrl: 'https://test.io/new' })).rejects.toThrow(
-      'Shortened URL already generated for record rec-1',
+      'Shortened URL already generated for record rec-1'
     )
   })
 
@@ -177,7 +175,7 @@ describe('DidCommShortenUrlApi', () => {
     repository.getById.mockResolvedValue(existingRecord)
 
     await expect(api.sendShortenedUrl({ recordId: 'rec-1', shortenedUrl: 'https://test.io/new' })).rejects.toThrow(
-      'Shortened URL already generated for record rec-1',
+      'Shortened URL already generated for record rec-1'
     )
   })
 
@@ -202,7 +200,7 @@ describe('DidCommShortenUrlApi', () => {
     repository.getById.mockResolvedValue(existingRecord)
 
     await expect(api.sendShortenedUrl({ recordId: 'rec-1', shortenedUrl: 'https://test.io/new' })).rejects.toThrow(
-      'already invalidated',
+      'already invalidated'
     )
   })
 
@@ -230,7 +228,7 @@ describe('DidCommShortenUrlApi', () => {
       expect.objectContaining({
         state: ShortenUrlState.InvalidationSent,
         invalidationMessageId: message.id,
-      }),
+      })
     )
   })
 
@@ -302,7 +300,7 @@ describe('DidCommShortenUrlApi', () => {
     await api.invalidateShortenedUrl({ recordId: 'rec-1' })
     expect(repository.update).toHaveBeenCalledWith(
       agentContext,
-      expect.objectContaining({ state: ShortenUrlState.InvalidationSent }),
+      expect.objectContaining({ state: ShortenUrlState.InvalidationSent })
     )
   })
 
@@ -335,7 +333,7 @@ describe('DidCommShortenUrlApi', () => {
       expect.objectContaining({
         expiresTime: providedExpires,
         shortenedUrl: 'https://test.io/xyz',
-      }),
+      })
     )
     expect(repository.save).not.toHaveBeenCalled()
     expect(shortenService.createShortenedUrl).toHaveBeenCalledWith({

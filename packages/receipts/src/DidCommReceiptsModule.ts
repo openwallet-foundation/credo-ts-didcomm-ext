@@ -29,7 +29,7 @@ export class DidCommReceiptsModule implements Module {
     featureRegistry.register(
       new DidCommProtocol({
         id: 'https://didcomm.org/receipts/1.0',
-      }),
+      })
     )
 
     messageHandlerRegistry.registerMessageHandlers([

@@ -1,3 +1,8 @@
+import type { AgentContext } from '@credo-ts/core'
+import { EventEmitter } from '@credo-ts/core'
+import type { DidCommInboundMessageContext } from '@credo-ts/didcomm'
+import * as Mrz from 'mrz'
+import { DidCommMrtdModuleConfig } from '../config/DidCommMrtdModuleConfig'
 import type {
   EMrtdDataReceivedEvent,
   EMrtdDataRequestedEvent,
@@ -5,15 +10,8 @@ import type {
   MrzDataReceivedEvent,
   MrzDataRequestedEvent,
 } from '../DidCommMrtdEvents'
-import type { SodVerification } from '../models/SodVerification'
-import type { AgentContext } from '@credo-ts/core'
-import type { DidCommInboundMessageContext } from '@credo-ts/didcomm'
-
-import { EventEmitter } from '@credo-ts/core'
-import * as Mrz from 'mrz'
 
 import { MrtdEventTypes } from '../DidCommMrtdEvents'
-import { DidCommMrtdModuleConfig } from '../config/DidCommMrtdModuleConfig'
 import {
   EMrtdDataMessage,
   EMrtdDataRequestMessage,
@@ -22,6 +20,7 @@ import {
   MrzDataRequestMessage,
 } from '../messages'
 import { parseEMrtdData } from '../models'
+import type { SodVerification } from '../models/SodVerification'
 
 import { CscaMasterListService } from './CscaMasterListService'
 import { SodVerifierService } from './SodVerifierService'
@@ -41,7 +40,7 @@ export class DidCommMrtdService {
     const connection = messageContext.assertReadyConnection()
     const { agentContext, message } = messageContext
 
-    let parsed
+    let parsed: MrzDataReceivedEvent['payload']['mrzData']['parsed']
     try {
       const parseResult = Mrz.parse(message.mrzData, { autocorrect: true })
 
@@ -91,8 +90,8 @@ export class DidCommMrtdService {
     const connection = messageContext.assertReadyConnection()
     const { agentContext, message } = messageContext
 
-    let parsed
-    let verification
+    let parsed: EMrtdDataReceivedEvent['payload']['dataGroups']['parsed']
+    let verification: EMrtdDataReceivedEvent['payload']['dataGroups']['verification']
 
     try {
       const parseResult = parseEMrtdData(message.dataGroups)
@@ -135,7 +134,7 @@ export class DidCommMrtdService {
    */
   private async sodVerification(
     agentContext: AgentContext,
-    dataGroupsBase64: Record<string, string>,
+    dataGroupsBase64: Record<string, string>
   ): Promise<SodVerification> {
     const sodB64 = dataGroupsBase64?.SOD
     if (!sodB64) return { authenticity: false, integrity: false, details: 'SOD not found in datagroups' }

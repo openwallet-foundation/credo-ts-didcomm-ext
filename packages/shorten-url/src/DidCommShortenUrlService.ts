@@ -1,12 +1,11 @@
+import { CredoError, EventEmitter, injectable } from '@credo-ts/core'
+import { AckStatus, DidCommInboundMessageContext } from '@credo-ts/didcomm'
 import type {
   DidCommInvalidateShortenedUrlReceivedEvent,
   DidCommRequestShortenedUrlReceivedEvent,
   DidCommShortenedUrlInvalidatedEvent,
   DidCommShortenedUrlReceivedEvent,
 } from './DidCommShortenUrlEvents'
-
-import { CredoError, EventEmitter, injectable } from '@credo-ts/core'
-import { AckStatus, DidCommInboundMessageContext } from '@credo-ts/didcomm'
 
 import { DidCommShortenUrlEventTypes } from './DidCommShortenUrlEvents'
 import { DidCommShortenUrlModuleConfig } from './DidCommShortenUrlModuleConfig'
@@ -23,7 +22,7 @@ import { DidCommShortenUrlRecord, DidCommShortenUrlRepository } from './reposito
 export class DidCommShortenUrlService {
   public constructor(
     private readonly eventEmitter: EventEmitter,
-    private readonly repository: DidCommShortenUrlRepository,
+    private readonly repository: DidCommShortenUrlRepository
   ) {}
 
   // Create messages to send
@@ -65,7 +64,7 @@ export class DidCommShortenUrlService {
     const maximumRequestedValiditySeconds = config.maximumRequestedValiditySeconds
     if (maximumRequestedValiditySeconds !== undefined && requestedValiditySeconds > maximumRequestedValiditySeconds) {
       throw new CredoError(
-        `validity_too_long: requested_validity_seconds (${requestedValiditySeconds}) exceeds maximum of ${maximumRequestedValiditySeconds}`,
+        `validity_too_long: requested_validity_seconds (${requestedValiditySeconds}) exceeds maximum of ${maximumRequestedValiditySeconds}`
       )
     }
 
@@ -176,7 +175,7 @@ export class DidCommShortenUrlService {
 
     if (!record.shortenedUrl) {
       throw new CredoError(
-        'Cannot mark shortened-url record as invalidated because it does not contain a shortened URL',
+        'Cannot mark shortened-url record as invalidated because it does not contain a shortened URL'
       )
     }
 
