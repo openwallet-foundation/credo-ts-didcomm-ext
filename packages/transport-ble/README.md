@@ -19,15 +19,17 @@
       alt="typescript"
       src="https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg"
   /></a>
-    <a href="https://www.npmjs.com/package/@credo-ts/transport-ble"
+    <a href="https://www.npmjs.com/package/@credo-ts/didcomm-transport-ble"
     ><img
-      alt="@credo-ts/transport-ble version"
-      src="https://img.shield.io/npm/v/@credo-ts/transport-ble"
+      alt="@credo-ts/didcomm-transport-ble version"
+      src="https://img.shields.io/npm/v/@credo-ts/didcomm-transport-ble"
   /></a>
   <br />
 </p>
 
 The Credo BLE Transport package provides a simple way to add Bluetooth Low Energy (BLE) data transport into Credo React Native mobile agents.
+
+> **Warning:** This transport has not yet been tested with Credo 0.7.x. It may be unstable or not work as expected.
 
 It implements the same transport interfaces as [@credo-ts/didcomm](https://www.npmjs.com/package/@credo-ts/didcomm).
 
@@ -46,7 +48,7 @@ We're this discussing if this is the best approach to use in future versions. If
 This package requires Credo 0.7.x and React Native 0.73.4 or newer.
 
 ```sh
-npm install @credo-ts/transport-ble @credo-ts/core @credo-ts/didcomm @credo-ts/react-native @animo-id/react-native-ble-didcomm
+npm install @credo-ts/didcomm-transport-ble @credo-ts/core @credo-ts/didcomm @credo-ts/react-native @animo-id/react-native-ble-didcomm
 ```
 
 ## Configuration
@@ -62,7 +64,7 @@ This means that the agent acting as the connection initiator should use the `Cen
 ```ts
 // If you want to register the transports only after initializing the agent, you can do this anywhere else in your app, and just leave out the agent config and initialization
 
-import { BleOutboundTransport, BleInboundTransport } from '@credo-ts/transport-ble'
+import { BleOutboundTransport, BleInboundTransport } from '@credo-ts/didcomm-transport-ble'
 import { Agent } from '@credo-ts/core'
 import { DidCommModule } from '@credo-ts/didcomm'
 import { agentDependencies } from '@credo-ts/react-native'
