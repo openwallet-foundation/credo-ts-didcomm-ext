@@ -1,5 +1,5 @@
 {
-  "name": "@credo-ts/transport-ble",
+  "name": "@credo-ts/didcomm-transport-ble",
   "type": "module",
   "main": "./build/index.mjs",
   "module": "./build/index.mjs",
