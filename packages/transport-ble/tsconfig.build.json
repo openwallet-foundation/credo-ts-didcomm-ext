@@ -2,8 +2,7 @@
   "extends": "../../tsconfig.build.json",
 
   "compilerOptions": {
-    "outDir": "./build",
-    "types": ["react-native"]
+    "outDir": "./build"
   },
 
   "include": ["src/**/*"]

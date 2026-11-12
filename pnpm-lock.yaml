@@ -347,9 +347,6 @@ importers:
       '@credo-ts/didcomm':
         specifier: ^0.7.0
         version: 0.7.2(typescript@5.9.3)
-      react-native:
-        specifier: 0.73.4
-        version: 0.73.4(@babel/core@7.29.13)(@babel/preset-env@7.29.7(@babel/core@7.29.13))(react@18.2.0)
 
   packages/user-profile:
     dependencies:

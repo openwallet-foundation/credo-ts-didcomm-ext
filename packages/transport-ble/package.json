@@ -37,13 +37,11 @@
   "devDependencies": {
     "@animo-id/react-native-ble-didcomm": "^0.5.1",
     "@credo-ts/core": "^0.7.0",
-    "@credo-ts/didcomm": "^0.7.0",
-    "react-native": "0.73.4"
+    "@credo-ts/didcomm": "^0.7.0"
   },
   "peerDependencies": {
     "@animo-id/react-native-ble-didcomm": ">=0.5.1 <=0.9.3",
-    "@credo-ts/core": "^0.7.0",
-    "@credo-ts/didcomm": "^0.7.0",
-    "react-native": ">=0.73.4"
+    "@credo-ts/core": "^0.7.2",
+    "@credo-ts/didcomm": "^0.7.2"
   }
 }

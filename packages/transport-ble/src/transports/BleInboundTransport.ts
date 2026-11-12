@@ -3,9 +3,12 @@ import type { AgentContext, Logger } from '@credo-ts/core'
 import { utils } from '@credo-ts/core'
 import type { DidCommInboundTransport } from '@credo-ts/didcomm'
 import { DidCommMessageReceiver, DidCommTransportService } from '@credo-ts/didcomm'
-import type { EmitterSubscription } from 'react-native'
 
 import { DidCommBleTransportSession } from './BleTransportSession'
+
+type EmitterSubscription = {
+  remove: () => void
+}
 
 export class DidCommBleInboundTransport implements DidCommInboundTransport {
   public supportedSchemes: string[] = ['ble']
