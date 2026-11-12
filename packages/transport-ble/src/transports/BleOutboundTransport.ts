@@ -3,7 +3,7 @@ import type { AgentContext, Logger } from '@credo-ts/core'
 import { CredoError } from '@credo-ts/core'
 import type { DidCommOutboundPackage, DidCommOutboundTransport } from '@credo-ts/didcomm'
 
-export class BleOutboundTransport implements DidCommOutboundTransport {
+export class DidCommBleOutboundTransport implements DidCommOutboundTransport {
   public supportedSchemes: string[] = ['ble']
   private messenger: Ble
   private logger?: Logger

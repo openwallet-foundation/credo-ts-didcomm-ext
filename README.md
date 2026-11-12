@@ -12,6 +12,7 @@ DIDComm Extension modules for [Credo](https://github.com/openwallet-foundation/c
 | [@credo-ts/didcomm-reactions](packages/reactions)         | DIDComm Message Reactions protocol                 |
 | [@credo-ts/didcomm-receipts](packages/receipts)           | DIDComm Message Receipts protocol                  |
 | [@credo-ts/didcomm-shorten-url](packages/shorten-url)     | DIDComm Shorten URL protocol                       |
+| [@credo-ts/didcomm-transport-ble](packages/transport-ble) | DIDComm Bluetooth Low Energy transport             |
 | [@credo-ts/didcomm-user-profile](packages/user-profile)   | DIDComm User Profile protocol                      |
 
 ## Migration from the `@2060.io` scope

@@ -5,13 +5,13 @@ import type { DidCommInboundTransport } from '@credo-ts/didcomm'
 import { DidCommMessageReceiver, DidCommTransportService } from '@credo-ts/didcomm'
 import type { EmitterSubscription } from 'react-native'
 
-import { BleTransportSession } from './BleTransportSession'
+import { DidCommBleTransportSession } from './BleTransportSession'
 
-export class BleInboundTransport implements DidCommInboundTransport {
+export class DidCommBleInboundTransport implements DidCommInboundTransport {
   public supportedSchemes: string[] = ['ble']
   private messenger: Ble
   private messageListener?: EmitterSubscription
-  private session!: BleTransportSession
+  private session!: DidCommBleTransportSession
   private disconnectionListener?: EmitterSubscription
   private logger?: Logger
 
@@ -24,7 +24,7 @@ export class BleInboundTransport implements DidCommInboundTransport {
     this.logger.debug('Starting BLE inbound transport')
 
     const sessionId = utils.uuid()
-    this.session = new BleTransportSession(sessionId, this.messenger, agentContext)
+    this.session = new DidCommBleTransportSession(sessionId, this.messenger, agentContext)
 
     const messageListener = async (data: { message: string }) => {
       const message = data.message

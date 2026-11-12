@@ -3,7 +3,7 @@ import type { AgentContext } from '@credo-ts/core'
 import { utils } from '@credo-ts/core'
 import type { DidCommEncryptedMessage, DidCommTransportSession } from '@credo-ts/didcomm'
 
-export class BleTransportSession implements DidCommTransportSession {
+export class DidCommBleTransportSession implements DidCommTransportSession {
   public readonly type = 'ble'
   public id: string
 

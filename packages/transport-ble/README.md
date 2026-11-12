@@ -53,18 +53,18 @@ npm install @credo-ts/didcomm-transport-ble @credo-ts/core @credo-ts/didcomm @cr
 
 ## Configuration
 
-Configuring your agent to use the transport is simple; all you need is to import the transports, `BleOutboundTransport` and `BleInboundTransport`, from the package, and register them on the agent, either before or after agent initialization.
+Configuring your agent to use the transport is simple; all you need is to import the transports, `DidCommBleOutboundTransport` and `DidCommBleInboundTransport`, from the package, and register them on the agent, either before or after agent initialization.
 
-The only difference is that unlike HTTP and WebSockets, an agent can only register one of either outbound, `BleOutboundTransport`, or inbound, `BleInboundTransport`, transport, depending on which role the agent wants to take in the BLE DIDComm exchange.
+The only difference is that unlike HTTP and WebSockets, an agent can only register one of either outbound, `DidCommBleOutboundTransport`, or inbound, `DidCommBleInboundTransport`, transport, depending on which role the agent wants to take in the BLE DIDComm exchange.
 
 The BLE DIDComm SDK provides two controllers: `Central`, to be used by the agent who will be initiating the exchange (creating and sending the out-of-band invitation), and `Peripheral`, for the agent who will be receiving and accepting the invitation.
 
-This means that the agent acting as the connection initiator should use the `Central` controller with `BleInboundTransport`, while the agent acting as the connection receptor uses the Peripheral controller with `BleOutboundTransport`.
+This means that the agent acting as the connection initiator should use the `Central` controller with `DidCommBleInboundTransport`, while the agent acting as the connection receptor uses the Peripheral controller with `DidCommBleOutboundTransport`.
 
 ```ts
 // If you want to register the transports only after initializing the agent, you can do this anywhere else in your app, and just leave out the agent config and initialization
 
-import { BleOutboundTransport, BleInboundTransport } from '@credo-ts/didcomm-transport-ble'
+import { DidCommBleOutboundTransport, DidCommBleInboundTransport } from '@credo-ts/didcomm-transport-ble'
 import { Agent } from '@credo-ts/core'
 import { DidCommModule } from '@credo-ts/didcomm'
 import { agentDependencies } from '@credo-ts/react-native'
@@ -122,7 +122,7 @@ const createAgent = async () => {
   */
 
   // Register the transport on the agent's DIDComm module
-  const bleInboundTransport = new BleInboundTransport(central) // const bleOutboundTransport = new BleOutboundTransport(peripheral)
+  const bleInboundTransport = new DidCommBleInboundTransport(central) // const bleOutboundTransport = new DidCommBleOutboundTransport(peripheral)
   agent.didcomm.registerInboundTransport(bleInboundTransport) // agent.didcomm.registerOutboundTransport(bleOutboundTransport)
 
   await agent.initialize()
