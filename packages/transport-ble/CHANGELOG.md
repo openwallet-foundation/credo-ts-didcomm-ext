@@ -33,6 +33,16 @@
 * **push-notifications:** update to afj 0.4.0 ([#209](https://www.github.com/hyperledger/aries-framework-javascript-ext/issues/209)) ([7488de6](https://www.github.com/hyperledger/aries-framework-javascript-ext/commit/7488de64ee029dd58b6452532b4ef067497678c6))
 * **transport-ble:** update to afj 0.4.0 ([#217](https://www.github.com/hyperledger/aries-framework-javascript-ext/issues/217)) ([8f147d2](https://www.github.com/hyperledger/aries-framework-javascript-ext/commit/8f147d22fe46a4014c63a11ecfe919b3286e63b3))
 
+## 0.4.0
+
+### Minor Changes
+
+- 034b0b7: Move the BLE transport package to the Credo DIDComm extensions repository and rename it from `@credo-ts/transport-ble` to `@credo-ts/didcomm-transport-ble`. Update installation commands and imports to use the new package name.
+  
+  This release requires Credo 0.7.x and React Native 0.73.4 or newer. Transports now use the `@credo-ts/didcomm` interfaces and are registered through `agent.didcomm`. The package now publishes ESM with TypeScript declarations.
+  
+  The transport has not yet been tested with Credo 0.7.x and may be unstable or not work as expected.
+
 ## 0.1.0 (2023-03-27)
 
 
