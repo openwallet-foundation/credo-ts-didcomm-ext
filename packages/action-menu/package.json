@@ -1,0 +1,55 @@
+{
+  "name": "@credo-ts/didcomm-action-menu",
+  "type": "module",
+  "main": "./build/index.mjs",
+  "module": "./build/index.mjs",
+  "types": "./build/index.d.mts",
+  "version": "0.7.4",
+  "exports": {
+    ".": {
+      "types": "./build/index.d.mts",
+      "default": "./build/index.mjs"
+    }
+  },
+  "files": [
+    "build"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "Apache-2.0",
+  "description": "DIDComm Action Menu protocol implementation for Credo",
+  "homepage": "https://github.com/openwallet-foundation/credo-ts-didcomm-ext/tree/main/packages/action-menu",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/openwallet-foundation/credo-ts-didcomm-ext",
+    "directory": "packages/action-menu"
+  },
+  "scripts": {
+    "build": "tsdown --config ./tsdown.config.ts",
+    "clean": "rimraf -rf ./build",
+    "compile": "tsc -p tsconfig.build.json",
+    "prepublishOnly": "pnpm run build",
+    "check-types": "tsc --noEmit -p tsconfig.build.json",
+    "test": "vitest"
+  },
+  "devDependencies": {
+    "@credo-ts/askar": "^0.7.4",
+    "@credo-ts/core": "^0.7.4",
+    "@credo-ts/didcomm": "^0.7.4",
+    "@credo-ts/node": "^0.7.4",
+    "@openwallet-foundation/askar-nodejs": "0.6.0",
+    "@openwallet-foundation/askar-shared": "0.6.0",
+    "reflect-metadata": "^0.2.2"
+  },
+  "peerDependencies": {
+    "@credo-ts/core": "^0.7.4",
+    "@credo-ts/didcomm": "^0.7.4"
+  },
+  "dependencies": {
+    "class-transformer": "0.5.1",
+    "class-validator": "^0.14.3",
+    "rxjs": "^7.8.2",
+    "zod": "^4.6.7"
+  }
+}

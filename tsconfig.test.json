@@ -8,6 +8,6 @@
     },
     "types": ["vitest/globals", "vitest/importMeta", "node"]
   },
-  "include": ["tests", "samples", "**/tests", "**/test", "**/samples"],
+  "include": ["tests", "samples", "**/tests", "**/test", "**/__tests__", "**/samples"],
   "exclude": ["node_modules", "build", "**/build/**"]
 }

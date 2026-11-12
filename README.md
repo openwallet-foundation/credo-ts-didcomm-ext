@@ -4,15 +4,18 @@ DIDComm Extension modules for [Credo](https://github.com/openwallet-foundation/c
 
 ## Packages
 
-| Package                                                   | Description                                        |
-| --------------------------------------------------------- | -------------------------------------------------- |
-| [@credo-ts/didcomm-calls](packages/calls)                 | DIDComm WebRTC calls protocol                      |
-| [@credo-ts/didcomm-media-sharing](packages/media-sharing) | DIDComm Media Sharing protocol                     |
-| [@credo-ts/didcomm-mrtd](packages/mrtd)                   | DIDComm Machine Readable Travel Documents protocol |
-| [@credo-ts/didcomm-reactions](packages/reactions)         | DIDComm Message Reactions protocol                 |
-| [@credo-ts/didcomm-receipts](packages/receipts)           | DIDComm Message Receipts protocol                  |
-| [@credo-ts/didcomm-shorten-url](packages/shorten-url)     | DIDComm Shorten URL protocol                       |
-| [@credo-ts/didcomm-user-profile](packages/user-profile)   | DIDComm User Profile protocol                      |
+| Package                                                       | Description                                        |
+| ------------------------------------------------------------- | -------------------------------------------------- |
+| [@credo-ts/didcomm-action-menu](packages/action-menu)         | DIDComm Action Menu protocol                       |
+| [@credo-ts/didcomm-calls](packages/calls)                     | DIDComm WebRTC calls protocol                      |
+| [@credo-ts/didcomm-drpc](packages/drpc)                       | DIDComm DRPC protocol                              |
+| [@credo-ts/didcomm-media-sharing](packages/media-sharing)     | DIDComm Media Sharing protocol                     |
+| [@credo-ts/didcomm-mrtd](packages/mrtd)                       | DIDComm Machine Readable Travel Documents protocol |
+| [@credo-ts/didcomm-question-answer](packages/question-answer) | DIDComm Question Answer protocol                   |
+| [@credo-ts/didcomm-reactions](packages/reactions)             | DIDComm Message Reactions protocol                 |
+| [@credo-ts/didcomm-receipts](packages/receipts)               | DIDComm Message Receipts protocol                  |
+| [@credo-ts/didcomm-shorten-url](packages/shorten-url)         | DIDComm Shorten URL protocol                       |
+| [@credo-ts/didcomm-user-profile](packages/user-profile)       | DIDComm User Profile protocol                      |
 
 ## Migration from the `@2060.io` scope
 
@@ -29,6 +32,18 @@ This repository was transferred from [2060.io](https://github.com/2060-io) to th
 | `@2060.io/credo-ts-didcomm-user-profile`  | `@credo-ts/didcomm-user-profile`  |
 
 To migrate, replace the old package name with the new package name in your `package.json` and in your imports. The module API did not change. The `@credo-ts` packages need Credo 0.7.2 or a later 0.7 release. If you are still on Credo 0.6, keep using the `@2060.io` packages.
+
+## Migration from the Credo repository
+
+The Action Menu, DRPC, and Question Answer modules moved from the [Credo repository](https://github.com/openwallet-foundation/credo-ts) to this repository. The package names changed. The module API did not change.
+
+| Old name                    | New name                            |
+| --------------------------- | ----------------------------------- |
+| `@credo-ts/action-menu`     | `@credo-ts/didcomm-action-menu`     |
+| `@credo-ts/drpc`            | `@credo-ts/didcomm-drpc`            |
+| `@credo-ts/question-answer` | `@credo-ts/didcomm-question-answer` |
+
+To migrate, replace the old package name with the new package name in your `package.json` and in your imports.
 
 ## Development
 

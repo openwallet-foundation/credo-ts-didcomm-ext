@@ -1,6 +1,11 @@
+import path from 'node:path'
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
+  resolve: {
+    // Resolve the workspace packages to their sources, like the paths in tsconfig.json
+    alias: [{ find: /^@credo-ts\/didcomm-([^/]+)$/, replacement: path.resolve(__dirname, 'packages/$1/src') }],
+  },
   test: {
     globals: true,
     environment: 'node',
