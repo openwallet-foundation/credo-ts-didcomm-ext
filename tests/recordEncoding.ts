@@ -3,6 +3,7 @@ import path from 'node:path'
 import type { BaseRecordAny } from '@credo-ts/core'
 import { JsonTransformer } from '@credo-ts/core'
 import type { ClassConstructor } from 'class-transformer'
+import { describe, expect, test } from 'vitest'
 
 /**
  * Tests that records encode to, and decode from, the JSON in `<fixturesDirectory>/<name>.json`.

@@ -1,0 +1,94 @@
+import { existsSync } from 'node:fs'
+import path from 'node:path'
+import { Agent, Kms } from '@credo-ts/core'
+import { DidCommConnectionRepository, DidCommModule } from '@credo-ts/didcomm'
+import { DrizzleStorageModule } from '@credo-ts/drizzle-storage'
+import { didcommBundle } from '@credo-ts/drizzle-storage/didcomm'
+import { agentDependencies, NodeInMemoryKeyManagementStorage, NodeKeyManagementService } from '@credo-ts/node'
+import { pushSQLiteSchema } from 'drizzle-kit/api'
+import { drizzle } from 'drizzle-orm/libsql'
+import { getMockConnection } from '../../../tests/helpers'
+import { testLogger } from '../../../tests/logger'
+import { DidCommDrpcModule, DidCommDrpcRecord, DidCommDrpcRepository, DidCommDrpcRole, DidCommDrpcState } from '../src'
+import { didcommDrpcBundle } from '../src/drizzle/bundle'
+
+const createRecord = () =>
+  new DidCommDrpcRecord({
+    connectionId: 'connection-id',
+    threadId: 'thread-id',
+    role: DidCommDrpcRole.Client,
+    state: DidCommDrpcState.RequestSent,
+    request: { jsonrpc: '2.0', method: 'add', params: [1, 2], id: 1 },
+    tags: { custom: 'tag' },
+  })
+
+describe('didcommDrpcBundle', () => {
+  let agent: Agent
+  let repository: DidCommDrpcRepository
+
+  beforeAll(async () => {
+    const storage = new DrizzleStorageModule({
+      database: drizzle(':memory:'),
+      bundles: [didcommBundle, didcommDrpcBundle],
+    })
+
+    // Push the schema instead of running the migrations, like the drizzle-storage tests do
+    // biome-ignore lint/suspicious/noExplicitAny: the push api expects the concrete database type
+    const { apply } = await pushSQLiteSchema(storage.config.schemas, storage.config.database as any)
+    await apply()
+
+    agent = new Agent({
+      config: { logger: testLogger },
+      dependencies: agentDependencies,
+      modules: {
+        storage,
+        // The DIDComm module creates a routing key when the agent initializes
+        kms: new Kms.KeyManagementModule({
+          backends: [new NodeKeyManagementService(new NodeInMemoryKeyManagementStorage())],
+        }),
+        didcomm: new DidCommModule(),
+        drpc: new DidCommDrpcModule(),
+      },
+    })
+    await agent.initialize()
+
+    repository = agent.dependencyManager.resolve(DidCommDrpcRepository)
+
+    // The record table has a foreign key to the connection table
+    const connection = getMockConnection({ id: 'connection-id' })
+    await agent.dependencyManager.resolve(DidCommConnectionRepository).save(agent.context, connection)
+  })
+
+  afterAll(async () => {
+    await agent.shutdown()
+  })
+
+  test('points to the migration files of the package', () => {
+    expect(didcommDrpcBundle.name).toBe('drpc')
+    expect(existsSync(path.join(didcommDrpcBundle.migrations.sqlite.migrationsPath, 'meta/_journal.json'))).toBe(true)
+    expect(existsSync(path.join(didcommDrpcBundle.migrations.postgres.migrationsPath, 'meta/_journal.json'))).toBe(true)
+    expect(existsSync(didcommDrpcBundle.migrations.sqlite.schemaPath)).toBe(true)
+    expect(existsSync(didcommDrpcBundle.migrations.postgres.schemaPath)).toBe(true)
+  })
+
+  test('saves, queries, updates, and deletes a record', async () => {
+    const record = createRecord()
+    await repository.save(agent.context, record)
+
+    const stored = await repository.getById(agent.context, record.id)
+    expect(stored).toBeInstanceOf(DidCommDrpcRecord)
+    expect(stored).toEqual(record)
+    expect(stored.getTags()).toEqual(record.getTags())
+
+    expect(await repository.findByQuery(agent.context, { threadId: 'thread-id' })).toEqual([record])
+    expect(await repository.findByQuery(agent.context, { custom: 'tag' })).toEqual([record])
+    expect(await repository.findByQuery(agent.context, { custom: 'other' })).toEqual([])
+
+    record.state = DidCommDrpcState.Completed
+    await repository.update(agent.context, record)
+    expect((await repository.getById(agent.context, record.id)).state).toBe(DidCommDrpcState.Completed)
+
+    await repository.delete(agent.context, record)
+    expect(await repository.findById(agent.context, record.id)).toBeNull()
+  })
+})

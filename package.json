@@ -27,12 +27,16 @@
     "@credo-ts/askar": "^0.7.4",
     "@credo-ts/core": "^0.7.4",
     "@credo-ts/didcomm": "^0.7.4",
+    "@credo-ts/drizzle-storage": "^0.7.4",
     "@credo-ts/node": "^0.7.4",
+    "@libsql/client": "^0.18.0",
     "@openwallet-foundation/askar-nodejs": "0.6.0",
     "@openwallet-foundation/askar-shared": "0.6.0",
     "@types/node": "^20.19.0",
     "@vitest/coverage-v8": "^4.0.15",
     "class-transformer": "0.5.1",
+    "drizzle-kit": "^0.31.11",
+    "drizzle-orm": "^0.44.7",
     "reflect-metadata": "^0.2.2",
     "rimraf": "^5.0.5",
     "rxjs": "^7.8.2",
@@ -41,8 +45,8 @@
     "typescript": "~5.9.3"
   },
   "dependencies": {
-    "vitest": "^4.0.15",
-    "tsdown": "^0.16.7"
+    "tsdown": "^0.16.7",
+    "vitest": "^4.0.15"
   },
   "engines": {
     "node": ">= 20.19"

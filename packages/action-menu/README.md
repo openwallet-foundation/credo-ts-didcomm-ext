@@ -62,3 +62,28 @@ await agent.modules.actionMenu.performAction({
   performedAction: { name: 'option-1' },
 })
 ```
+
+### Drizzle storage
+
+The package provides a drizzle record bundle for [`@credo-ts/drizzle-storage`](https://github.com/openwallet-foundation/credo-ts/tree/main/packages/drizzle-storage) under the `/drizzle` subpath. Install `@credo-ts/drizzle-storage` and `drizzle-orm`, and register the bundle together with the `didcomm` bundle:
+
+```ts
+import { didcommActionMenuBundle } from '@credo-ts/didcomm-action-menu/drizzle'
+import { DrizzleStorageModule } from '@credo-ts/drizzle-storage'
+import { didcommBundle } from '@credo-ts/drizzle-storage/didcomm'
+
+const storage = new DrizzleStorageModule({
+  database,
+  bundles: [didcommBundle, didcommActionMenuBundle],
+})
+```
+
+Pass the subpath to the `--bundle` option of the drizzle-storage CLI to apply the migrations:
+
+```sh
+pnpm drizzle-storage --bundle core --bundle didcomm --bundle @credo-ts/didcomm-action-menu/drizzle migrate --dialect sqlite --database-url "file:./agent.db"
+```
+
+In React Native, import the SQLite migrations from `@credo-ts/didcomm-action-menu/drizzle/migrations/sqlite` and pass them to `applyReactNativeMigrations`.
+
+The bundle replaces the `action-menu` bundle of `@credo-ts/drizzle-storage`. The bundle name, the table name, and the migrations did not change, so an existing database keeps working.

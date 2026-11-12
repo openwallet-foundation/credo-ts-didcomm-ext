@@ -19,10 +19,10 @@
       alt="typescript"
       src="https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg"
   /></a>
-    <a href="https://www.npmjs.com/package/@credo-ts/didcomm-question-answer"
+    <a href="https://www.npmjs.com/package/@credo-ts/didcomm-drpc"
     ><img
-      alt="@credo-ts/didcomm-question-answer version"
-      src="https://img.shields.io/npm/v/@credo-ts/didcomm-question-answer"
+      alt="@credo-ts/didcomm-drpc version"
+      src="https://img.shields.io/npm/v/@credo-ts/didcomm-drpc"
   /></a>
 
 </p>
@@ -71,3 +71,28 @@ const result =
 // Send the response back
 await sendResponse(result)
 ```
+
+### Drizzle storage
+
+The package provides a drizzle record bundle for [`@credo-ts/drizzle-storage`](https://github.com/openwallet-foundation/credo-ts/tree/main/packages/drizzle-storage) under the `/drizzle` subpath. Install `@credo-ts/drizzle-storage` and `drizzle-orm`, and register the bundle together with the `didcomm` bundle:
+
+```ts
+import { didcommDrpcBundle } from '@credo-ts/didcomm-drpc/drizzle'
+import { DrizzleStorageModule } from '@credo-ts/drizzle-storage'
+import { didcommBundle } from '@credo-ts/drizzle-storage/didcomm'
+
+const storage = new DrizzleStorageModule({
+  database,
+  bundles: [didcommBundle, didcommDrpcBundle],
+})
+```
+
+Pass the subpath to the `--bundle` option of the drizzle-storage CLI to apply the migrations:
+
+```sh
+pnpm drizzle-storage --bundle core --bundle didcomm --bundle @credo-ts/didcomm-drpc/drizzle migrate --dialect sqlite --database-url "file:./agent.db"
+```
+
+In React Native, import the SQLite migrations from `@credo-ts/didcomm-drpc/drizzle/migrations/sqlite` and pass them to `applyReactNativeMigrations`.
+
+The bundle replaces the `drpc` bundle of `@credo-ts/drizzle-storage`. The bundle name, the table name, and the migrations did not change, so an existing database keeps working.

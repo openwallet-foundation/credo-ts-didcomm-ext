@@ -51,12 +51,12 @@ To migrate:
 
 Some names did not change: the API option types without a protocol name, such as `CreateMenuOptions`, and the DRPC validators `isValidDrpcRequest` and `isValidDrpcResponse`. The question-answer model `ValidResponse` is now `DidCommQuestionAnswerValidResponse`.
 
-## Development
+### Drizzle storage
 
-```sh
-pnpm install
-pnpm validate
-pnpm test
-```
+The `action-menu`, `drpc`, and `question-answer` bundles of `@credo-ts/drizzle-storage` decode the stored records into the classes of the old packages. Do not combine them with the new packages. Each new package provides its own bundle under the `/drizzle` subpath. Replace the old bundle with the new one:
 
-Releases use [changesets](https://github.com/changesets/changesets). Add a changeset with `pnpm changeset` to every pull request that changes a published package. When changesets land on `main`, the release workflow opens a release pull request that bumps the versions, and merging it publishes the packages to npm with [trusted publishing](https://docs.npmjs.com/trusted-publishers).
+| Old bundle                                                              | New bundle                                                                     |
+| ----------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| `actionMenuBundle` from `@credo-ts/drizzle-storage/action-menu`         | `didcommActionMenuBundle` from `@credo-ts/didcomm-action-menu/drizzle`         |
+| `drpcBundle` from `@credo-ts/drizzle-storage/drpc`                      | `didcommDrpcBundle` from `@credo-ts/didcomm-drpc/drizzle`                      |
+| `questionAnswerBundle` from `@credo-ts/drizzle-storage/question-answer` | `didcommQuestionAnswerBundle` from `@credo-ts/didcomm-question-answer/drizzle` |
