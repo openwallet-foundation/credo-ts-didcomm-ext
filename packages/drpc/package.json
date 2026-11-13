@@ -1,0 +1,83 @@
+{
+  "name": "@credo-ts/didcomm-drpc",
+  "type": "module",
+  "main": "./build/index.mjs",
+  "module": "./build/index.mjs",
+  "types": "./build/index.d.mts",
+  "version": "0.7.4",
+  "exports": {
+    ".": {
+      "types": "./build/index.d.mts",
+      "default": "./build/index.mjs"
+    },
+    "./drizzle": {
+      "types": "./build/drizzle/bundle.d.mts",
+      "default": "./build/drizzle/bundle.mjs"
+    },
+    "./drizzle/sqlite": {
+      "types": "./build/drizzle/sqlite.d.mts",
+      "default": "./build/drizzle/sqlite.mjs"
+    },
+    "./drizzle/postgres": {
+      "types": "./build/drizzle/postgres.d.mts",
+      "default": "./build/drizzle/postgres.mjs"
+    },
+    "./drizzle/migrations/sqlite": {
+      "types": "./migrations/sqlite/migrations.d.ts",
+      "default": "./migrations/sqlite/migrations.js"
+    }
+  },
+  "files": [
+    "build",
+    "migrations"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "Apache-2.0",
+  "description": "DIDComm DRPC protocol implementation for Credo",
+  "homepage": "https://github.com/openwallet-foundation/credo-ts-didcomm-ext/tree/main/packages/drpc",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/openwallet-foundation/credo-ts-didcomm-ext",
+    "directory": "packages/drpc"
+  },
+  "scripts": {
+    "build": "tsdown --config ./tsdown.config.ts",
+    "clean": "rimraf -rf ./build",
+    "compile": "tsc -p tsconfig.build.json",
+    "prepublishOnly": "pnpm run build",
+    "check-types": "tsc --noEmit -p tsconfig.build.json",
+    "test": "vitest"
+  },
+  "devDependencies": {
+    "@credo-ts/askar": "^0.7.4",
+    "@credo-ts/core": "^0.7.4",
+    "@credo-ts/didcomm": "^0.7.4",
+    "@credo-ts/drizzle-storage": "^0.7.4",
+    "@credo-ts/node": "^0.7.4",
+    "@openwallet-foundation/askar-nodejs": "0.6.0",
+    "@openwallet-foundation/askar-shared": "0.6.0",
+    "drizzle-orm": "^0.44.7",
+    "reflect-metadata": "^0.2.2"
+  },
+  "peerDependencies": {
+    "@credo-ts/core": "^0.7.4",
+    "@credo-ts/didcomm": "^0.7.4",
+    "@credo-ts/drizzle-storage": "^0.7.4",
+    "drizzle-orm": "^0.44.6 || ^0.45.0"
+  },
+  "peerDependenciesMeta": {
+    "@credo-ts/drizzle-storage": {
+      "optional": true
+    },
+    "drizzle-orm": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "class-transformer": "0.5.1",
+    "class-validator": "^0.14.3",
+    "zod": "^4.6.7"
+  }
+}
