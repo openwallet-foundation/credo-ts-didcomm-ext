@@ -95,6 +95,29 @@ See the [source code](./src/) for details on available classes and methods:
 - [`MediaSharingModule`](./src/MediaSharingModule.ts): Module integration for Credo agent.
 - [`MediaSharingEvents`](./src/MediaSharingEvents.ts): Event types and payloads.
 
+## Drizzle storage
+
+The package provides a drizzle record bundle for [`@credo-ts/drizzle-storage`](https://github.com/openwallet-foundation/credo-ts/tree/main/packages/drizzle-storage) under the `/drizzle` subpath. Install `@credo-ts/drizzle-storage` and `drizzle-orm`, and register the bundle together with the `didcomm` bundle:
+
+```ts
+import { didcommMediaSharingBundle } from '@credo-ts/didcomm-media-sharing/drizzle'
+import { DrizzleStorageModule } from '@credo-ts/drizzle-storage'
+import { didcommBundle } from '@credo-ts/drizzle-storage/didcomm'
+
+const storage = new DrizzleStorageModule({
+  database,
+  bundles: [didcommBundle, didcommMediaSharingBundle],
+})
+```
+
+Pass the subpath to the `--bundle` option of the drizzle-storage CLI to apply the migrations:
+
+```sh
+pnpm drizzle-storage --bundle core --bundle didcomm --bundle @credo-ts/didcomm-media-sharing/drizzle migrate --dialect sqlite --database-url "file:./agent.db"
+```
+
+In React Native, import the SQLite migrations from `@credo-ts/didcomm-media-sharing/drizzle/migrations/sqlite` and pass them to `applyReactNativeMigrations`.
+
 ## License
 
 Apache 2.0

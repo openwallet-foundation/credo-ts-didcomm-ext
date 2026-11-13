@@ -18,6 +18,23 @@ DIDComm Extension modules for [Credo](https://github.com/openwallet-foundation/c
 | [@credo-ts/didcomm-transport-ble](packages/transport-ble) | DIDComm Bluetooth Low Energy transport             |
 | [@credo-ts/didcomm-user-profile](packages/user-profile)       | DIDComm User Profile protocol                      |
 
+## Drizzle storage
+
+The packages that store records provide a drizzle record bundle for [`@credo-ts/drizzle-storage`](https://github.com/openwallet-foundation/credo-ts/tree/main/packages/drizzle-storage) under the `/drizzle` subpath:
+
+| Package                             | Bundle                        |
+| ----------------------------------- | ----------------------------- |
+| `@credo-ts/didcomm-action-menu`     | `didcommActionMenuBundle`     |
+| `@credo-ts/didcomm-drpc`            | `didcommDrpcBundle`           |
+| `@credo-ts/didcomm-media-sharing`   | `didcommMediaSharingBundle`   |
+| `@credo-ts/didcomm-question-answer` | `didcommQuestionAnswerBundle` |
+| `@credo-ts/didcomm-shorten-url`     | `didcommShortenUrlBundle`     |
+| `@credo-ts/didcomm-user-profile`    | `didcommUserProfileBundle`    |
+
+Register the bundle together with the `didcomm` bundle in the `DrizzleStorageModule`. To apply the migrations with the drizzle-storage CLI, pass the subpath to the `--bundle` option, for example `--bundle @credo-ts/didcomm-media-sharing/drizzle`. The README of each package shows the full setup.
+
+To regenerate the migrations of a package after a schema change, run `pnpm drizzle:generate <package directory>` in this repository.
+
 ## Migration from the `@2060.io` scope
 
 This repository was transferred from [2060.io](https://github.com/2060-io) to the OpenWallet Foundation. The packages moved from the `@2060.io` scope to the `@credo-ts` scope.
