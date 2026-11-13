@@ -1,0 +1,47 @@
+{
+  "name": "@credo-ts/didcomm-transport-ble",
+  "type": "module",
+  "main": "./build/index.mjs",
+  "module": "./build/index.mjs",
+  "types": "./build/index.d.mts",
+  "version": "0.4.0",
+  "exports": {
+    ".": {
+      "types": "./build/index.d.mts",
+      "default": "./build/index.mjs"
+    }
+  },
+  "files": [
+    "build"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "Apache-2.0",
+  "description": "Bluetooth Low Energy transport for Credo",
+  "homepage": "https://github.com/openwallet-foundation/credo-ts-didcomm-ext/tree/main/packages/transport-ble",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/openwallet-foundation/credo-ts-didcomm-ext",
+    "directory": "packages/transport-ble"
+  },
+  "scripts": {
+    "build": "tsdown --config ./tsdown.config.ts",
+    "clean": "rimraf -rf ./build",
+    "compile": "tsc -p tsconfig.build.json",
+    "prepublishOnly": "pnpm run build"
+  },
+  "bugs": {
+    "url": "https://github.com/openwallet-foundation/credo-ts-didcomm-ext/issues"
+  },
+  "devDependencies": {
+    "@animo-id/react-native-ble-didcomm": "^0.5.1",
+    "@credo-ts/core": "^0.7.0",
+    "@credo-ts/didcomm": "^0.7.0"
+  },
+  "peerDependencies": {
+    "@animo-id/react-native-ble-didcomm": ">=0.5.1 <=0.9.3",
+    "@credo-ts/core": "^0.7.2",
+    "@credo-ts/didcomm": "^0.7.2"
+  }
+}
