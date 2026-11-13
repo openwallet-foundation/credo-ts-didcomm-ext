@@ -73,6 +73,29 @@ See the [source code](./src/) for details on available classes and methods:
 - `DidCommProfileMessage`
 - `DidCommRequestProfileMessage`
 
+## Drizzle storage
+
+The package provides a drizzle record bundle for [`@credo-ts/drizzle-storage`](https://github.com/openwallet-foundation/credo-ts/tree/main/packages/drizzle-storage) under the `/drizzle` subpath. Install `@credo-ts/drizzle-storage` and `drizzle-orm`, and register the bundle together with the `didcomm` bundle:
+
+```ts
+import { didcommUserProfileBundle } from '@credo-ts/didcomm-user-profile/drizzle'
+import { DrizzleStorageModule } from '@credo-ts/drizzle-storage'
+import { didcommBundle } from '@credo-ts/drizzle-storage/didcomm'
+
+const storage = new DrizzleStorageModule({
+  database,
+  bundles: [didcommBundle, didcommUserProfileBundle],
+})
+```
+
+Pass the subpath to the `--bundle` option of the drizzle-storage CLI to apply the migrations:
+
+```sh
+pnpm drizzle-storage --bundle core --bundle didcomm --bundle @credo-ts/didcomm-user-profile/drizzle migrate --dialect sqlite --database-url "file:./agent.db"
+```
+
+In React Native, import the SQLite migrations from `@credo-ts/didcomm-user-profile/drizzle/migrations/sqlite` and pass them to `applyReactNativeMigrations`.
+
 ## License
 
 Apache 2.0
