@@ -172,6 +172,28 @@ describe('Action Menu', () => {
     expect(aliceActiveMenu?.state).toBe(DidCommActionMenuState.Done)
   })
 
+  test('Faber sends root menu and gets the id of the sent message', async () => {
+    testLogger.test('Faber sends root menu to Alice')
+    const { record: faberActionMenuRecord, messageId } = await faberAgent.modules.actionMenu.sendMenuWithMessageId({
+      connectionId: faberConnection.id,
+      menu: rootMenu,
+    })
+
+    expect(faberActionMenuRecord).toBeInstanceOf(DidCommActionMenuRecord)
+    expect(faberActionMenuRecord.state).toBe(DidCommActionMenuState.AwaitingSelection)
+    expect(messageId).toEqual(expect.any(String))
+
+    testLogger.test('Alice waits until she receives menu')
+    const aliceActionMenuRecord = await waitForActionMenuRecord(aliceAgent, {
+      state: DidCommActionMenuState.PreparingSelection,
+    })
+
+    // The menu starts a new thread, so the thread id is the id of the menu message
+    expect(aliceActionMenuRecord.threadId).toBe(messageId)
+    expect(faberActionMenuRecord.threadId).toBe(messageId)
+    expect(aliceActionMenuRecord.menu).toEqual(rootMenu)
+  })
+
   test('Menu navigation', async () => {
     testLogger.test('Faber sends root menu ')
     let faberActionMenuRecord = await faberAgent.modules.actionMenu.sendMenu({
