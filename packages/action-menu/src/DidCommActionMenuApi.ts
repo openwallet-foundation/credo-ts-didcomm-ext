@@ -65,6 +65,19 @@ export class DidCommActionMenuApi {
    * @returns Action Menu record associated to this action
    */
   public async sendMenu(options: SendMenuOptions) {
+    const { record } = await this.sendMenuWithMessageId(options)
+
+    return record
+  }
+
+  /**
+   * Send a new Action Menu as responder, answering with the identifier of the sent message.
+   * Behaves like {@link sendMenu}, but also exposes the id of the DIDComm message.
+   *
+   * @param options options for sending menu
+   * @returns the Action Menu record and the id of the sent message
+   */
+  public async sendMenuWithMessageId(options: SendMenuOptions) {
     const connection = await this.connectionService.getById(this.agentContext, options.connectionId)
 
     const { message, record } = await this.actionMenuService.createMenu(this.agentContext, {
@@ -80,7 +93,7 @@ export class DidCommActionMenuApi {
 
     await this.messageSender.sendMessage(outboundMessageContext)
 
-    return record
+    return { record, messageId: message.id }
   }
 
   /**
